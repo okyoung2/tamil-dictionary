@@ -39,7 +39,7 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { background: var(--bg); color: var(--fg); font-family: var(--f-ui); font-size: 15px; line-height: 1.6; }
-.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; gap: 18px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 48px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
 @media (max-width: 480px) { .wrap { padding-inline: 16px; } }
 [lang="ta"] { font-family: var(--f-ta); }
 
@@ -124,7 +124,7 @@ dd.en { font-family: var(--f-rom); font-size: 1.05rem; }
 .auto { font-size: 0.72rem; border: 1px solid var(--line); border-radius: 3px; padding: 0 5px; margin-left: 4px; vertical-align: 1px; }
 .xref { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .xref-label { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.04em; margin-right: 4px; }
-.xref .btn { padding: 4px 12px; font-size: 0.95rem; }
+.xref .btn { padding: 4px 12px; font-size: 0.95rem; white-space: normal; text-align: left; max-width: 100%; }
 .lemma-note { margin: 0; padding: 10px 14px; border-radius: 6px; background: var(--ink-soft); font-size: 0.9rem; }
 
 .pron { display: grid; gap: 8px; }
@@ -200,14 +200,12 @@ html:not(.translated-ltr):not(.translated-rtl) .orig { display: none; }
 #alpha-btn { padding: 6px 14px; }
 #alpha-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
-#conv-btn { padding: 6px 14px; }
-#conv-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+#conv-btn, #about-btn { padding: 6px 14px; }
+#conv-btn[aria-pressed="true"], #about-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .head-right { flex-wrap: wrap; justify-content: flex-end; }
 
 /* 타밀어 소개 */
-.about { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 12px 18px; }
-.about summary { cursor: pointer; font-weight: 600; }
-.about-sub { font-weight: 400; color: var(--muted); font-size: 0.82rem; margin-left: 6px; }
+.about { display: grid; gap: 12px; }
 .about-lead { margin: 12px 0 0; max-width: 72ch; }
 .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 10px; margin-top: 12px; }
 .about-card { padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
@@ -341,8 +339,8 @@ button.nm-w:hover { text-decoration: underline; }
 .akc-ex:hover { color: var(--ink); text-decoration: underline; }
 .akc-ex span { font-family: var(--f-ta); font-size: 0.9rem; }
 .vowel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 12px; }
-.vowel { display: grid; gap: 6px; align-content: start; }
-.vowel-sign { display: flex; justify-content: center; align-items: baseline; gap: 8px; font-size: 0.85rem; color: var(--muted); border: 1px dashed var(--line); background: transparent; border-radius: 6px; padding: 2px 8px; justify-self: center; }
+.vowel { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.vowel-sign { display: flex; flex-wrap: wrap; max-width: 100%; justify-content: center; align-items: baseline; gap: 2px 8px; font-size: 0.85rem; color: var(--muted); border: 1px dashed var(--line); background: transparent; border-radius: 6px; padding: 2px 8px; justify-self: center; }
 .vowel-sign:hover { border-color: var(--ink); }
 .vowel-sign [lang="ta"] { font-size: 1.35rem; color: var(--fg); }
 .vowel-sign .mat { color: var(--turmeric); }
@@ -402,7 +400,7 @@ footer p { margin: 0; }
   </div>
   <header translate="no" lang="ko">
     <h1><span class="ta" lang="ta">அகராதி</span> 타밀 소사전</h1>
-    <div class="head-right"><span class="count" id="count"></span><button type="button" class="btn" id="conv-btn" aria-pressed="false">회화 배우기</button><button type="button" class="btn" id="alpha-btn" aria-pressed="false">자음+모음 보기</button></div>
+    <div class="head-right"><span class="count" id="count"></span><button type="button" class="btn" id="about-btn" aria-pressed="false">타밀어란?</button><button type="button" class="btn" id="conv-btn" aria-pressed="false">회화 배우기</button><button type="button" class="btn" id="alpha-btn" aria-pressed="false">자음+모음 보기</button></div>
   </header>
 
   <div class="searchbar" translate="no" lang="ko">
@@ -410,8 +408,8 @@ footer p { margin: 0; }
     <button class="btn btn-primary" id="search-btn" type="button">검색</button>
   </div>
   <p class="hint dict-view" translate="no" lang="ko">타밀 문자나 로마자(발음 구별 기호 없이 <code>vanakkam</code>, <code>nadi</code>, <code>murugan</code>, <code>tiruchitrambalam</code>처럼 영어식으로 써도 됨)로 사전 표제어 11만여 개를 찾습니다. 문장 속 형태(예: <code>படிக்கிறேன்</code>, <code>அம்மாவுக்கு</code>)를 치면 기본형을 찾아 줍니다. 한국어 낱말(예: 물, 어머니, 운명)과 영어 단어는 사전의 영어 뜻풀이에서 찾습니다(<span class="src src-en">≈ 영어</span> 표시). 영어 풀이는 크롬의 <b>한국어로 번역</b>(주소창 번역 아이콘 또는 마우스 오른쪽 버튼)으로도 볼 수 있습니다.</p>
-  <details class="about dict-view" id="about" open translate="no" lang="ko">
-    <summary>타밀어는 어떤 말인가요? <span class="about-sub">쓰는 곳 · 역사 이야기</span></summary>
+  <section class="about" id="about" hidden translate="no" lang="ko" aria-label="타밀어란?">
+    <header class="alpha-head"><h2>타밀어란? <span lang="ta">தமிழ்</span></h2><p>쓰는 곳 · 말과 글 · 역사 이야기</p></header>
     <p class="about-lead"><b>타밀어(<span lang="ta">தமிழ்</span>)</b>는 남인도 타밀나두를 중심으로 쓰는 드라비다어족의 언어입니다. 2천 년이 넘는 기록과 문학을 가진, 지금도 살아 있는 가장 오래된 고전어 가운데 하나입니다.</p>
     <div class="about-grid">
       <section class="about-card"><h3>쓰는 사람</h3>
@@ -437,10 +435,9 @@ footer p { margin: 0; }
       <li><b>인도 문자로 인쇄된 첫 책</b> — 1578년 포르투갈 선교사가 타밀 문자로 찍은 <span lang="ta">தம்பிரான் வணக்கம்</span>(탐비란 바낙깜)이 인도 언어·인도 문자로 인쇄된 첫 책으로 꼽힙니다. (1554년 리스본에서 로마자로 찍은 타밀어 책이 더 이르다는 견해도 있습니다.)</li>
       <li><b>야자잎에서 되살아난 고전</b> — 19세기 말 학자 우.베.사미나타이야르(<span lang="ta">உ. வே. சாமிநாதையர்</span>)가 마을마다 야자잎 사본(<span lang="ta">ஓலைச்சுவடி</span>)을 찾아다녀, 잊혀 가던 상감 문학을 책으로 펴냈습니다. 나디 잎도 같은 야자잎 사본 전통에 속합니다.</li>
       <li><b>순수 타밀 운동</b> — 1916년 무렵 마라이말라이 아디갈이 시작한 '순수 타밀 운동'(<span lang="ta">தனித்தமிழ் இயக்கம்</span>)은 산스크리트에서 온 말을 순수 타밀어로 바꾸자고 했습니다. 그래서 오늘날 글에서는 <span lang="ta">மகிழ்ச்சி</span>(기쁨), 말에서는 산스크리트계 <span lang="ta">சந்தோஷம்</span>을 쓰는 식으로 갈리는 일이 많습니다.</li>
-      <li><b>영어 속 타밀어</b> — catamaran(쌍동선)은 <span lang="ta">கட்டுமரம்</span>('묶은 나무' 뗏목), cheroot(엽궐련)은 <span lang="ta">சுருட்டு</span>('만 것'), mulligatawny(카레 수프)는 <span lang="ta">மிளகுத்தண்ணீர்</span>('후추 물')에서 왔습니다.</li>
     </ul>
     <p class="about-src">출처: Wikipedia 'Tamil language'·'Thambiran Vanakkam'·'Tamil inscriptions in the Malay world', Britannica 'Tamil language', 이 사전의 Tamil Lexicon. 숫자는 조사 시기에 따라 다를 수 있습니다.</p>
-  </details>
+  </section>
 
   <div class="chips dict-view" id="cats" role="group" aria-label="분류" translate="no" lang="ko"></div>
   <nav class="varna dict-view" aria-label="첫 글자" translate="no" lang="ko"><div class="varna-row" id="varna"></div></nav>
@@ -2606,7 +2603,17 @@ function renderConv() {
     <section class="alpha-sec"><h3>${CONV_CATS.find(([c]) => c === convCat)[1]} <span class="sub">${list.length}개</span></h3>
       <div class="cv-list">${list.map(p => convCard(p, CONV.indexOf(p))).join("")}</div></section>`;
 }
+function showAbout(on) {
+  if (on && !$("alphabet").hidden) showAlphabet(false);
+  if (on && !$("conv").hidden) showConv(false);
+  $("about").hidden = !on;
+  document.querySelectorAll(".dict-view").forEach(el => { el.hidden = on; });
+  $("about-btn").textContent = on ? "사전으로" : "타밀어란?";
+  $("about-btn").setAttribute("aria-pressed", on);
+  if (on) $("about").scrollIntoView({ block: "start" });
+}
 function showConv(on) {
+  if (on && !$("about").hidden) showAbout(false);
   if (on && !$("alphabet").hidden) showAlphabet(false);
   $("conv").hidden = !on;
   document.querySelectorAll(".dict-view").forEach(el => { el.hidden = on; });
@@ -2615,6 +2622,7 @@ function showConv(on) {
   if (on) { renderConv(); $("conv").scrollIntoView({ block: "start" }); }
 }
 function showAlphabet(on) {
+  if (on && !$("about").hidden) showAbout(false);
   if (on && !$("conv").hidden) showConv(false);
   $("alphabet").hidden = !on;
   document.querySelectorAll(".dict-view").forEach(el => { el.hidden = on; });
@@ -2629,6 +2637,7 @@ $("q").addEventListener("input", e => {
   clearTimeout(typing);
   if (!$("alphabet").hidden) showAlphabet(false);
   if (!$("conv").hidden) showConv(false);
+  if (!$("about").hidden) showAbout(false);
   typing = setTimeout(() => { state.q = e.target.value; state.sel = null; state.limit = PAGE_LIMIT; render(); }, 150);
 });
 function clearQuery() { clearTimeout(typing); state.q = ""; $("q").value = ""; state.autoSel = false; }
@@ -2676,6 +2685,7 @@ function runSearch() {
   clearTimeout(typing);
   if (!$("alphabet").hidden) showAlphabet(false);
   if (!$("conv").hidden) showConv(false);
+  if (!$("about").hidden) showAbout(false);
   state.q = $("q").value; state.cat = "all"; state.letter = ""; state.limit = PAGE_LIMIT; state.sel = null;
   renderVarna(); lastSel = null; render(); scrollToCurrent();
   if (matchMedia("(max-width: 760px)").matches) $("list").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -2683,8 +2693,7 @@ function runSearch() {
 $("search-btn").addEventListener("click", runSearch);
 $("alpha-btn").addEventListener("click", () => showAlphabet($("alphabet").hidden));
 $("conv-btn").addEventListener("click", () => showConv($("conv").hidden));
-try { if (localStorage.getItem("about-open") === "0") $("about").open = false; } catch {}
-$("about").addEventListener("toggle", () => { try { localStorage.setItem("about-open", $("about").open ? "1" : "0"); } catch {} });
+$("about-btn").addEventListener("click", () => showAbout($("about").hidden));
 $("about").addEventListener("click", e => {
   const b = e.target.closest("[data-about]"); if (!b) return;
   if (b.dataset.about === "conv") showConv(true);
