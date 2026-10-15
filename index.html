@@ -206,7 +206,7 @@ html:not(.translated-ltr):not(.translated-rtl) .orig { display: none; }
 
 /* 타밀어 소개 */
 .about { display: grid; gap: 12px; }
-.about-lead { margin: 12px 0 0; max-width: 72ch; }
+.about-lead { margin: 12px 0 0; }
 .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 10px; margin-top: 12px; }
 .about-card { padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
 .about-card h3, .about-h { margin: 0 0 6px; font-size: 0.95rem; color: var(--ink); }
@@ -214,11 +214,11 @@ html:not(.translated-ltr):not(.translated-rtl) .orig { display: none; }
 .about-card ul { padding-left: 1.1em; display: grid; gap: 4px; }
 .about-card .about-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .about-h { margin-top: 16px; }
-.about-story { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 0.9rem; max-width: 80ch; }
+.about-story { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 0.9rem; }
 .about-src { margin: 12px 0 0; font-size: 0.78rem; color: var(--muted); }
 /* 숫자 읽기 */
 .nm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 8px; }
-.nm { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 2px 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.nm { display: grid; grid-template-columns: auto minmax(0, max-content) auto 1fr; align-items: center; gap: 2px 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
 .nm-n { font-weight: 600; color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
 .nm-w { font-family: var(--f-ta); font-size: 1.1rem; color: var(--ink); background: none; border: 0; padding: 0; text-align: left; overflow-wrap: anywhere; }
 button.nm-w:hover { text-decoration: underline; }
@@ -267,7 +267,7 @@ button.nm-w:hover { text-decoration: underline; }
 .cv-rule-ex { display: grid; gap: 8px; }
 .cv-rx { display: grid; gap: 2px; padding: 8px 10px; border: 1px dashed var(--line); border-radius: 6px; background: var(--bg); }
 .cv-rx-ko { margin: 0 0 2px; font-size: 0.85rem; font-weight: 600; }
-.cv-rx-side { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 6px; }
+.cv-rx-side { display: grid; grid-template-columns: auto minmax(0, max-content) auto 1fr; align-items: center; column-gap: 6px; }
 .cv-rx-ta { font-family: var(--f-ta); font-size: 1.1rem; color: var(--ink); overflow-wrap: anywhere; }
 .cv-rx-p { grid-column: 2 / -1; font-size: 0.76rem; color: var(--muted); }
 .cv-rx-p i { font-family: var(--f-rom); }
@@ -286,10 +286,10 @@ button.nm-w:hover { text-decoration: underline; }
 .alpha-head { display: grid; gap: 8px; justify-content: start; }
 .alpha-head h2 { margin: 0; font-size: 1.35rem; text-wrap: balance; }
 .alpha-head h2 span { font-family: var(--f-ta); font-weight: 600; color: var(--ink); margin-left: 8px; }
-.alpha-head p, .alpha-note { margin: 0; color: var(--muted); font-size: 0.9rem; max-width: 72ch; }
+.alpha-head p, .alpha-note { margin: 0; color: var(--muted); font-size: 0.9rem; }
 .alpha-note [lang="ta"] { color: var(--fg); font-size: 1.05rem; }
 .alpha-note b { color: var(--fg); }
-.alpha-tip { margin: 0; display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; border-radius: 8px; background: var(--ink-soft); border: 1px solid var(--ink); font-size: 0.92rem; max-width: 72ch; }
+.alpha-tip { margin: 0; display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; border-radius: 8px; background: var(--ink-soft); border: 1px solid var(--ink); font-size: 0.92rem; }
 .alpha-tip .spk { flex: none; color: var(--ink); margin-top: 2px; }
 .alpha-tip b { color: var(--ink); }
 .alpha-sec { display: grid; gap: 12px; }
@@ -375,7 +375,7 @@ button.sign { font: inherit; color: inherit; cursor: pointer; }
 button.sign:hover { border-color: var(--ink); background: var(--ink-soft); }
 .sign-d { font-family: var(--f-ta); font-size: 1.8rem; line-height: 1.5; color: var(--ink); }
 .leaf { display: grid; gap: 10px; padding: 18px 20px; border-radius: 10px; background: var(--surface); border: 1px solid var(--turmeric); }
-.leaf ol { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; max-width: 72ch; }
+.leaf ol { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
 .leaf li::marker { color: var(--turmeric); font-weight: 600; }
 .leaf [lang="ta"] { font-size: 1.1rem; }
 .numrow { display: flex; flex-wrap: wrap; gap: 8px; }
