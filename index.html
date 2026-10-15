@@ -204,6 +204,36 @@ html:not(.translated-ltr):not(.translated-rtl) .orig { display: none; }
 #conv-btn[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .head-right { flex-wrap: wrap; justify-content: flex-end; }
 
+/* 타밀어 소개 */
+.about { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: 12px 18px; }
+.about summary { cursor: pointer; font-weight: 600; }
+.about-sub { font-weight: 400; color: var(--muted); font-size: 0.82rem; margin-left: 6px; }
+.about-lead { margin: 12px 0 0; max-width: 72ch; }
+.about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 10px; margin-top: 12px; }
+.about-card { padding: 10px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.about-card h3, .about-h { margin: 0 0 6px; font-size: 0.95rem; color: var(--ink); }
+.about-card p, .about-card ul { margin: 0; font-size: 0.88rem; }
+.about-card ul { padding-left: 1.1em; display: grid; gap: 4px; }
+.about-card .about-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.about-h { margin-top: 16px; }
+.about-story { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: 0.9rem; max-width: 80ch; }
+.about-src { margin: 12px 0 0; font-size: 0.78rem; color: var(--muted); }
+/* 숫자 읽기 */
+.nm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 8px; }
+.nm { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 2px 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.nm-n { font-weight: 600; color: var(--muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.nm-w { font-family: var(--f-ta); font-size: 1.1rem; color: var(--ink); background: none; border: 0; padding: 0; text-align: left; overflow-wrap: anywhere; }
+button.nm-w:hover { text-decoration: underline; }
+.nm-spk { border: 0; background: none; color: var(--muted); padding: 2px; line-height: 0; }
+.nm-spk:hover { color: var(--ink); }
+.nm-r, .nm-sp { grid-column: 1 / -1; font-size: 0.78rem; color: var(--muted); }
+.nm-sp [lang="ta"] { font-family: var(--f-ta); color: var(--fg); margin-right: 4px; }
+.nm-h { margin: 8px 0 0; font-size: 1rem; }
+.nm-ord { overflow-x: auto; }
+.nm-ord table { border-collapse: collapse; font-size: 0.9rem; }
+.nm-ord th, .nm-ord td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; white-space: nowrap; }
+.nm-ord [lang="ta"] { font-family: var(--f-ta); }
+
 /* 회화 */
 .conv { display: grid; gap: 20px; }
 .cv-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 8px; }
@@ -236,7 +266,14 @@ html:not(.translated-ltr):not(.translated-rtl) .orig { display: none; }
 .cv-rule h4 { margin: 0; font-size: 0.95rem; }
 .cv-rule h4 span { font-weight: 400; font-size: 0.78rem; color: var(--muted); margin-left: 4px; }
 .cv-rule-ex { margin: 0; line-height: 1.9; }
-.cv-rule-ex [lang="ta"] { font-family: var(--f-ta); color: var(--ink); }
+.cv-rule-ex { display: grid; gap: 8px; }
+.cv-rx { display: grid; gap: 2px; padding: 8px 10px; border: 1px dashed var(--line); border-radius: 6px; background: var(--bg); }
+.cv-rx-ko { margin: 0 0 2px; font-size: 0.85rem; font-weight: 600; }
+.cv-rx-side { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: 6px; }
+.cv-rx-ta { font-family: var(--f-ta); font-size: 1.1rem; color: var(--ink); overflow-wrap: anywhere; }
+.cv-rx-p { grid-column: 2 / -1; font-size: 0.76rem; color: var(--muted); }
+.cv-rx-p i { font-family: var(--f-rom); }
+.cv-rx-arrow { font-size: 0.75rem; color: var(--muted); padding-left: 4px; }
 .cv-rule-d { margin: 0; font-size: 0.85rem; }
 .cv-rule-links { display: flex; flex-wrap: wrap; gap: 4px; }
 .cv-rule-links .cv-w { font-size: 0.76rem; }
@@ -373,6 +410,37 @@ footer p { margin: 0; }
     <button class="btn btn-primary" id="search-btn" type="button">검색</button>
   </div>
   <p class="hint dict-view" translate="no" lang="ko">타밀 문자나 로마자(발음 구별 기호 없이 <code>vanakkam</code>, <code>nadi</code>, <code>murugan</code>, <code>tiruchitrambalam</code>처럼 영어식으로 써도 됨)로 사전 표제어 11만여 개를 찾습니다. 문장 속 형태(예: <code>படிக்கிறேன்</code>, <code>அம்மாவுக்கு</code>)를 치면 기본형을 찾아 줍니다. 한국어 낱말(예: 물, 어머니, 운명)과 영어 단어는 사전의 영어 뜻풀이에서 찾습니다(<span class="src src-en">≈ 영어</span> 표시). 영어 풀이는 크롬의 <b>한국어로 번역</b>(주소창 번역 아이콘 또는 마우스 오른쪽 버튼)으로도 볼 수 있습니다.</p>
+  <details class="about dict-view" id="about" open translate="no" lang="ko">
+    <summary>타밀어는 어떤 말인가요? <span class="about-sub">쓰는 곳 · 역사 이야기</span></summary>
+    <p class="about-lead"><b>타밀어(<span lang="ta">தமிழ்</span>)</b>는 남인도 타밀나두를 중심으로 쓰는 드라비다어족의 언어입니다. 2천 년이 넘는 기록과 문학을 가진, 지금도 살아 있는 가장 오래된 고전어 가운데 하나입니다.</p>
+    <div class="about-grid">
+      <section class="about-card"><h3>쓰는 사람</h3>
+        <p>모어로 쓰는 사람 약 <b>7,900만 명</b>, 제2언어로 쓰는 사람까지 약 <b>8,600만 명</b>(Ethnologue).</p></section>
+      <section class="about-card"><h3>공용어인 곳</h3>
+        <ul><li><b>인도</b> — 타밀나두주와 푸두체리 등의 공용어. 인도 헌법이 정한 22개 언어 가운데 하나</li>
+          <li><b>스리랑카</b> — 싱할라어와 함께 공용어. 북부·동부 타밀 사람들이 씀</li>
+          <li><b>싱가포르</b> — 영어·말레이어·중국어와 함께 4개 공용어 가운데 하나</li></ul></section>
+      <section class="about-card"><h3>그 밖에 쓰는 곳</h3>
+        <ul><li><b>말레이시아</b> — 소수 언어로 인정. 타밀어로 가르치는 공립 초등학교가 543곳</li>
+          <li><b>남아프리카 공화국</b> — 소수 언어로 인정</li>
+          <li>모리셔스·피지 등과, 캐나다·영국 등의 이주민 사회</li></ul></section>
+      <section class="about-card"><h3>말과 글</h3>
+        <p>말하는 타밀어와 글로 쓰는 타밀어가 크게 다른 <b>양층 언어</b>입니다. 같은 말도 글로는 <span lang="ta">இருக்கிறேன்</span>, 말로는 <span lang="ta">இருக்கேன்</span>(있다)처럼 다릅니다.</p>
+        <p class="about-links"><button type="button" class="btn" data-about="conv">회화 배우기</button><button type="button" class="btn" data-about="alpha">자모표</button><button type="button" class="btn" data-about="num">숫자 읽기</button></p></section>
+    </div>
+    <h3 class="about-h">역사 이야기</h3>
+    <ul class="about-story">
+      <li><b>2천 년 넘은 기록</b> — 기원전 300년 무렵의 타밀-브라흐미 비문부터 기록이 남아 있습니다. 상감(<span lang="ta">சங்கம்</span>) 문학은 기원전 1세기~기원후 5세기 무렵의 시 2천여 편으로, 사랑을 노래한 '안'(<span lang="ta">அகம்</span>)과 전쟁·왕을 노래한 '밖'(<span lang="ta">புறம்</span>)으로 나뉩니다. 가장 오래된 문법서는 <span lang="ta">தொல்காப்பியம்</span>(톨카피얌)입니다.</li>
+      <li><b>인도의 첫 고전어</b> — 2004년 인도 정부가 처음으로 '고전어'로 지정한 언어가 타밀어입니다.</li>
+      <li><b>티루쿠랄</b> — 발루바르가 지은 2행시 1,330편의 격언집 <span lang="ta">திருக்குறள்</span>은 덕·재물·사랑을 노래하며 많은 언어로 옮겨졌습니다.</li>
+      <li><b>바다를 건넌 타밀어</b> — 남인도 상인 조합을 따라 동남아로 건너가, 태국 타쿠아파에서 9세기, 인도네시아 수마트라 바루스에서 1088년의 타밀어 비문이 발견되었습니다.</li>
+      <li><b>인도 문자로 인쇄된 첫 책</b> — 1578년 포르투갈 선교사가 타밀 문자로 찍은 <span lang="ta">தம்பிரான் வணக்கம்</span>(탐비란 바낙깜)이 인도 언어·인도 문자로 인쇄된 첫 책으로 꼽힙니다. (1554년 리스본에서 로마자로 찍은 타밀어 책이 더 이르다는 견해도 있습니다.)</li>
+      <li><b>야자잎에서 되살아난 고전</b> — 19세기 말 학자 우.베.사미나타이야르(<span lang="ta">உ. வே. சாமிநாதையர்</span>)가 마을마다 야자잎 사본(<span lang="ta">ஓலைச்சுவடி</span>)을 찾아다녀, 잊혀 가던 상감 문학을 책으로 펴냈습니다. 나디 잎도 같은 야자잎 사본 전통에 속합니다.</li>
+      <li><b>순수 타밀 운동</b> — 1916년 무렵 마라이말라이 아디갈이 시작한 '순수 타밀 운동'(<span lang="ta">தனித்தமிழ் இயக்கம்</span>)은 산스크리트에서 온 말을 순수 타밀어로 바꾸자고 했습니다. 그래서 오늘날 글에서는 <span lang="ta">மகிழ்ச்சி</span>(기쁨), 말에서는 산스크리트계 <span lang="ta">சந்தோஷம்</span>을 쓰는 식으로 갈리는 일이 많습니다.</li>
+      <li><b>영어 속 타밀어</b> — catamaran(쌍동선)은 <span lang="ta">கட்டுமரம்</span>('묶은 나무' 뗏목), cheroot(엽궐련)은 <span lang="ta">சுருட்டு</span>('만 것'), mulligatawny(카레 수프)는 <span lang="ta">மிளகுத்தண்ணீர்</span>('후추 물')에서 왔습니다.</li>
+    </ul>
+    <p class="about-src">출처: Wikipedia 'Tamil language'·'Thambiran Vanakkam'·'Tamil inscriptions in the Malay world', Britannica 'Tamil language', 이 사전의 Tamil Lexicon. 숫자는 조사 시기에 따라 다를 수 있습니다.</p>
+  </details>
 
   <div class="chips dict-view" id="cats" role="group" aria-label="분류" translate="no" lang="ko"></div>
   <nav class="varna dict-view" aria-label="첫 글자" translate="no" lang="ko"><div class="varna-row" id="varna"></div></nav>
@@ -916,6 +984,40 @@ const RAW = `
 முடி|muṭi|무디|동사|끝나다, 끝내다; ~할 수 있다; (명사) 머리카락|to end; to be able; hair|verb|동사 + முடியும்(~할 수 있다), முடியுமா?(할 수 있어요?)
 முந்தைய|muntaiya|문다이야|형용사|이전의, 지난|previous|time|
 அகத்தியன்|akattiyaṉ|아갓띠얀|고유명사|아가스티야 성자 (அகத்தியர்의 높임 없는 꼴)|the sage Agastya|shaiva|높여서 அகத்தியர்
+பூஜ்யம்|pūjyam|푸즈얌|수사|영, 0|zero, cipher|num|சுழியம்이라고도 함
+பதினொன்று|patiṉoṉṟu|파디논드루|수사|열하나, 11|eleven|num|
+பதின்மூன்று|patiṉmūṉṟu|파딘문드루|수사|열셋, 13|thirteen|num|
+பதினான்கு|patiṉāṉku|파디난구|수사|열넷, 14|fourteen|num|
+பதினைந்து|patiṉaintu|파디나인두|수사|열다섯, 15|fifteen|num|
+பதினாறு|patiṉāṟu|파디나루|수사|열여섯, 16|sixteen|num|
+பதினேழு|patiṉēḻu|파디넬루|수사|열일곱, 17|seventeen|num|
+பத்தொன்பது|pattoṉpatu|팟똔바두|수사|열아홉, 19|nineteen|num|
+இருபது|irupatu|이루바두|수사|스물, 20|twenty|num|21은 இருபத்தொன்று (இருபது + ஒன்று)
+முப்பது|muppatu|뭅빠두|수사|서른, 30|thirty|num|
+நாற்பது|nāṟpatu|나르파두|수사|마흔, 40|forty|num|
+ஐம்பது|aimpatu|아임바두|수사|쉰, 50|fifty|num|
+அறுபது|aṟupatu|아루바두|수사|예순, 60|sixty|num|
+எழுபது|eḻupatu|엘루바두|수사|일흔, 70|seventy|num|
+எண்பது|eṇpatu|엔바두|수사|여든, 80|eighty|num|
+தொண்ணூறு|toṇṇūṟu|톤누루|수사|아흔, 90|ninety|num|
+இருநூறு|irunūṟu|이루누루|수사|이백, 200|two hundred|num|
+முந்நூறு|munnūṟu|문누루|수사|삼백, 300|three hundred|num|
+நானூறு|nāṉūṟu|나누루|수사|사백, 400|four hundred|num|
+ஐந்நூறு|ainnūṟu|아인누루|수사|오백, 500|five hundred|num|
+அறுநூறு|aṟunūṟu|아루누루|수사|육백, 600|six hundred|num|
+எழுநூறு|eḻunūṟu|엘루누루|수사|칠백, 700|seven hundred|num|
+எண்ணூறு|eṇṇūṟu|엔누루|수사|팔백, 800|eight hundred|num|
+தொள்ளாயிரம்|toḷḷāyiram|톨라이람|수사|구백, 900|nine hundred|num|
+பத்தாயிரம்|pattāyiram|팟따이람|수사|만, 10,000|ten thousand|num|직역 '열 천'
+அரை|arai|아라이|수사|반, 2분의 1|half|num|அரை மணி(반 시간), அரை கிலோ(반 킬로)
+முக்கால்|mukkāl|묵깔|수사|4분의 3|three-quarters|num|முக்கால் மணி(45분)
+அரைக்கால்|araikkāl|아라익깔|수사|8분의 1|one-eighth|num|직역 '4분의 1의 반'
+மாகாணி|mākāṇi|마가니|수사|16분의 1|one-sixteenth|num|
+முந்திரி|muntiri|문디리|명사|320분의 1 (옛 분수); 캐슈너트|the fraction 1/320; cashew|num|타밀 전통 분수의 가장 작은 단위 가운데 하나
+மூன்றாவது|mūṉṟāvatu|문드라바두|수사|셋째, 세 번째|third|num|서수는 기수 + -ஆவது·-ஆம்
+கடைசி|kaṭaici|카다이시|형용사|마지막|last|num|
+நொடி|noṭi|노디|명사|초(秒); 눈 깜짝할 사이|second; instant|time|வினாடி라고도 함
+மதியம்|matiyam|마디얌|명사|한낮, 정오|noon, midday|time|மதியம் இரண்டு மணி(오후 2시)
 `;
 
 const CATS = [
@@ -2078,6 +2180,45 @@ function alphaCell(rom, glyph, ko, tip, speakText) {
     ${ex ? `<button type="button" class="akc-ex" data-goto="${ex.key}"><span lang="ta">${ex.d}</span> ${esc(ex.k.split(/[,;(]/)[0].trim())}</button>` : `<span class="akc-ex"></span>`}
   </div>`;
 }
+// ── 숫자 읽기: 기수(말 형태 포함)·서수·분수 ──
+// [값, 글 형태, 말 형태(1~10만)]
+const NUM_CARD = [[0, "பூஜ்யம்"], [1, "ஒன்று", "ஒண்ணு"], [2, "இரண்டு", "ரெண்டு"], [3, "மூன்று", "மூணு"], [4, "நான்கு", "நாலு"], [5, "ஐந்து", "அஞ்சு"],
+  [6, "ஆறு"], [7, "ஏழு"], [8, "எட்டு"], [9, "ஒன்பது", "ஒம்பது"], [10, "பத்து"],
+  [11, "பதினொன்று"], [12, "பன்னிரண்டு"], [13, "பதின்மூன்று"], [14, "பதினான்கு"], [15, "பதினைந்து"], [16, "பதினாறு"], [17, "பதினேழு"], [18, "பதினெட்டு"], [19, "பத்தொன்பது"], [20, "இருபது"],
+  [30, "முப்பது"], [40, "நாற்பது"], [50, "ஐம்பது"], [60, "அறுபது"], [70, "எழுபது"], [80, "எண்பது"], [90, "தொண்ணூறு"],
+  [100, "நூறு"], [200, "இருநூறு"], [300, "முந்நூறு"], [400, "நானூறு"], [500, "ஐந்நூறு"], [600, "அறுநூறு"], [700, "எழுநூறு"], [800, "எண்ணூறு"], [900, "தொள்ளாயிரம்"],
+  [1000, "ஆயிரம்"], [10000, "பத்தாயிரம்"], [100000, "இலட்சம்"], [10000000, "கோடி"]];
+// [숫자, 기수, -ஆம் 꼴, -ஆவது 꼴]
+const NUM_ORD = [[1, "ஒன்று", "முதல்", "முதலாவது"], [2, "இரண்டு", "இரண்டாம்", "இரண்டாவது"], [3, "மூன்று", "மூன்றாம்", "மூன்றாவது"],
+  [4, "நான்கு", "நான்காம்", "நான்காவது"], [5, "ஐந்து", "ஐந்தாம்", "ஐந்தாவது"], [7, "ஏழு", "ஏழாம்", "ஏழாவது"], [10, "பத்து", "பத்தாம்", "பத்தாவது"]];
+const NUM_FRAC = [["1/2", "அரை"], ["1/4", "கால்"], ["3/4", "முக்கால்"], ["1/8", "அரைக்கால்"], ["1/16", "மாகாணி"], ["1/320", "முந்திரி"]];
+const numWord = w => { const c = CORE_BY_WORD.get(w);
+  return c ? `<button type="button" class="nm-w" data-goto="${c.key}" title="사전에서 보기"><span lang="ta">${w}</span></button>` : `<span class="nm-w" lang="ta">${w}</span>`; };
+const numSpk = w => `<button type="button" class="nm-spk" data-speak="${w}" title="듣기" aria-label="${w} 듣기"${canSpeak() ? "" : " hidden"}>${SPK_SVG}</button>`;
+function numbersSection() {
+  return `<section class="alpha-sec" id="num-sec">
+    <h3>숫자 읽기 <span class="sub"><span lang="ta">எண்கள்</span> · 기수·서수·분수</span></h3>
+    <p class="alpha-note">타밀 낱말을 누르면 사전에서 그 낱말이 열립니다. 1~10은 말에서 줄여 말하는 꼴이 많아 <span class="cv-lab">말</span>로 함께 적었습니다. 시장·버스에서 값을 들을 때 쓸모 있어요.</p>
+    <div class="nm-grid">${NUM_CARD.map(([n, w, sp]) => `<div class="nm">
+      <span class="nm-n">${n.toLocaleString("ko-KR")}</span>${numWord(w)}${numSpk(w)}
+      <span class="nm-r">${esc(toRoman(w))} · ${esc(CORE_BY_WORD.get(w)?.h || toHangul(w))}</span>
+      ${sp ? `<span class="nm-sp"><span class="cv-lab">말</span><span lang="ta">${sp}</span> ${esc(toHangul(sp))}</span>` : ""}
+    </div>`).join("")}</div>
+    <p class="alpha-note"><b>숫자 잇기:</b> 큰 수 뒤에 작은 수를 붙여 한 낱말로 씁니다. 끝의 -து는 모음 앞에서 -த்-이 됩니다: <span lang="ta">இருபது</span> + <span lang="ta">ஒன்று</span> → <span lang="ta">இருபத்தொன்று</span>(21), <span lang="ta">நூறு</span> + <span lang="ta">எட்டு</span> → <span lang="ta">நூற்றெட்டு</span>(108). <b>큰 수:</b> 인도식으로 세어 10만이 <span lang="ta">இலட்சம்</span>(락), 1000만이 <span lang="ta">கோடி</span>(크로르)입니다. 그래서 100만은 <span lang="ta">பத்து இலட்சம்</span>(10 락)이라고 합니다.</p>
+    <h4 class="nm-h">서수 (첫째, 둘째 …)</h4>
+    <p class="alpha-note">기수에 <span lang="ta">-ஆம்</span>이나 <span lang="ta">-ஆவது</span>를 붙입니다(끝의 -உ는 빠짐). <span lang="ta">-ஆம்</span>은 명사 앞에서 '~째의'(<span lang="ta">இரண்டாம் நாள்</span> 둘째 날), <span lang="ta">-ஆவது</span>는 홀로 '~째, ~째로'로 씁니다. '첫째'만은 <span lang="ta">முதல்</span>·<span lang="ta">முதலாவது</span>를 씁니다. (Wiktionary: -ஆம், -ஆவது 'ordinal suffix')</p>
+    <div class="nm-ord"><table>
+      <thead><tr><th></th><th>기수</th><th>-ஆம் (명사 앞)</th><th>-ஆவது (홀로)</th></tr></thead>
+      <tbody>${NUM_ORD.map(([n, c, a, b]) => `<tr><th>${n}째</th><td lang="ta">${c}</td><td><span lang="ta">${a}</span>${numSpk(a)}</td><td><span lang="ta">${b}</span>${numSpk(b)}</td></tr>`).join("")}
+        <tr><th>마지막</th><td colspan="3">${numWord("கடைசி")} 마지막</td></tr></tbody>
+    </table></div>
+    <p class="alpha-note">예: <span lang="ta">ஏழாம் வீடு</span>(일곱째 궁 - 점성술에서 결혼을 보는 자리), <span lang="ta">நான்காம் காண்டம்</span>(넷째 장 - 나디 읽기), <span lang="ta">முதல் வகுப்பு</span>(1학년, 1등석).</p>
+    <h4 class="nm-h">분수 (옛 셈법)</h4>
+    <p class="alpha-note">타밀에는 고유한 분수 낱말이 있어 옛 문서와 야자잎 셈에 쓰였습니다. 지금도 <span lang="ta">அரை</span>(반), <span lang="ta">கால்</span>(4분의 1), <span lang="ta">முக்கால்</span>(4분의 3)은 시간·무게를 말할 때 흔히 씁니다: <span lang="ta">மூன்றரை மணி</span>(3시 반), <span lang="ta">கால் கிலோ</span>(250그램).</p>
+    <div class="nm-grid nm-frac">${NUM_FRAC.map(([f, w]) => `<div class="nm"><span class="nm-n">${f}</span>${numWord(w)}${numSpk(w)}<span class="nm-r">${esc(toRoman(w))} · ${esc(CORE_BY_WORD.get(w)?.h || toHangul(w))}</span></div>`).join("")}</div>
+    <p class="alpha-note"><span lang="ta">முந்திரி</span>(320분의 1)는 '캐슈너트'라는 뜻도 있는 낱말입니다. 숫자 글자(௧ ௨ ௩ …)는 바로 위 '기호와 숫자'에 있습니다.</p>
+  </section>`;
+}
 let alphaDone = false;
 function renderAlphabet() {
   if (alphaDone) return;
@@ -2146,6 +2287,8 @@ function renderAlphabet() {
       <div class="numrow">${[["௧", 1], ["௨", 2], ["௩", 3], ["௪", 4], ["௫", 5], ["௬", 6], ["௭", 7], ["௮", 8], ["௯", 9], ["௰", 10], ["௱", 100], ["௲", 1000]].map(([g, n]) =>
         `<button type="button" data-goto-num="${n}"><span class="g" lang="ta">${g}</span><span class="r">${n}</span></button>`).join("")}</div>
     </section>
+
+    ${numbersSection()}
 
     <section class="alpha-sec">
       <h3>야자잎 글씨 읽는 법 <span class="sub"><span lang="ta">ஓலைச்சுவடி</span></span></h3>
@@ -2219,6 +2362,17 @@ num|충분해요|போதும்|போதும்|போதும்=போ
 num|절반|பாதி|பாதி||쓰임: 반, 절반 ¶ 짜임: பாதி는 '나눈 반'. 시간·크기의 '반'은 அரை(예: அரை மணி '반 시간', அரை கிலோ '반 킬로')
 num|몇 시예요?|மணி என்ன?|மணி என்ன?||쓰임: 시각을 물을 때 ¶ 짜임: மணி(종, 시각) + என்ன(무엇). 직역 '시(時)가 무엇이냐' ¶ 참고: மணி는 '종', '보석'이라는 뜻도 있는 낱말
 num|___시예요|___ மணி|___ மணி||쓰임: 시각을 말할 때. ___에 숫자 ¶ 짜임: 숫자 + மணி(시). 예: மூன்று மணி(3시), காலை எட்டு மணி(아침 8시) ¶ 참고: '몇 시에'는 மணிக்கு(예: ஐந்து மணிக்கு '5시에')
+num|___시 ___분이에요|___ மணி ___ நிமிஷம்|___ மணி ___ நிமிடம்||쓰임: 시각을 분까지 말할 때. 앞 ___에 시, 뒤 ___에 분의 숫자를 넣음 ¶ 짜임: 숫자 + மணி(시) + 숫자 + நிமிடம்(분) ¶ 예: மூன்று மணி பத்து நிமிடம்(3시 10분), பன்னிரண்டு மணி நாற்பது நிமிடம்(12시 40분) ¶ 말과 글: 글 நிமிடம் → 말 நிமிஷம்: 산스크리트에서 온 말로, 말에서는 원래 소리 ஷ를 살림. 숫자도 말에서는 줄임꼴(மூணு 3, ரெண்டு 2 …)을 씀
+num|___시 ___분 ___초예요|___ மணி ___ நிமிஷம் ___ செகண்ட்|___ மணி ___ நிமிடம் ___ நொடி||쓰임: 초까지 정확히 말할 때(시계, 방송, 경기 기록) ¶ 짜임: 숫자 + மணி(시) + 숫자 + நிமிடம்(분) + 숫자 + நொடி(초) ¶ 말과 글: 글 நிமிடம் → 말 நிமிஷம், 글 நொடி ↔ 말 செகண்ட்(영어 second) ¶ 낱말: '초'는 வினாடி라고도 씀. நொடி의 본뜻은 '눈 깜짝할 사이, 손가락을 튕기는 소리'
+num|3시 반이에요|மூணரை மணி|மூன்றரை மணி|மூன்றரை=அரை:반 (மூன்று + அரை)|쓰임: '~시 반'. 시의 숫자 뒤에 அரை(반)를 붙여 한 낱말로 말함 ¶ 짜임: மூன்று(3) + அரை(반) → மூன்றரை(3과 반) + மணி(시). 숫자 끝의 -உ가 빠지고 붙음 ¶ 말과 글: 글 மூன்றரை → 말 மூணரை: மூன்று의 말 꼴 மூணு에 அரை가 붙음 ¶ 예: பத்தரை மணி(10시 반), ரெண்டரை மணி(2시 반 - 말)
+num|3시 15분이에요|மூணே கால் மணி|மூன்றே கால் மணி|மூன்றே=மூன்று,கால்=கால்:4분의 1|쓰임: '~시 15분'을 '~시와 4분의 1'로 말함 ¶ 짜임: மூன்று(3) + -ஏ(이음) + கால்(4분의 1) + மணி(시). 직역 '3과 4분의 1 시' ¶ 말과 글: 글 மூன்றே → 말 மூணே(மூன்று → மூணு) ¶ 참고: 붙여서 மூன்றேகால் மணி로도 씀. கால்은 '다리, 발'이라는 뜻도 있는 낱말
+num|3시 45분이에요|மூணே முக்கால் மணி|மூன்றே முக்கால் மணி|மூன்றே=மூன்று|쓰임: '~시 45분'을 '~시와 4분의 3'으로 말함 ¶ 짜임: மூன்று(3) + -ஏ(이음) + முக்கால்(4분의 3) + மணி(시) ¶ 말과 글: 글 மூன்றே → 말 மூணே(மூன்று → மூணு)
+num|오전 8시|காலை எட்டு மணி|காலை எட்டு மணி||쓰임: 아침 시각. 타밀어는 '오전·오후' 대신 하루의 때를 시각 앞에 붙임 ¶ 짜임: காலை(아침) + எட்டு(8) + மணி(시) ¶ 때 낱말: காலை(아침), மதியம்(한낮), மாலை(저녁), இரவு(밤)
+num|오후 2시|மதியம் ரெண்டு மணி|மதியம் இரண்டு மணி||쓰임: 한낮·이른 오후의 시각 ¶ 짜임: மதியம்(한낮) + இரண்டு(2) + மணி(시) ¶ 말과 글: 글 இரண்டு → 말 ரெண்டு: 첫 இ가 빠짐 ¶ 낱말: 격식 있는 글·방송에서는 முற்பகல்(오전), பிற்பகல்(오후)도 씀
+num|밤 10시|ராத்திரி பத்து மணி|இரவு பத்து மணி||쓰임: 밤 시각 ¶ 짜임: இரவு(밤) + பத்து(10) + மணி(시) ¶ 말과 글: 글 இரவு ↔ 말 ராத்திரி: '밤'을 말에서는 산스크리트에서 온 ராத்திரி로 흔히 말함
+num|몇 시에요?|எத்தனை மணிக்கு?|எத்தனை மணிக்கு?|மணிக்கு=மணி|쓰임: 약속·출발 시각을 물을 때 '몇 시에?' ¶ 짜임: எத்தனை(몇) + மணிக்கு(시에 - மணி + 여격 -க்கு). '몇 시예요?'(மணி என்ன?)와 달리 '~에'가 붙음 ¶ 대답: ஐந்து மணிக்கு(5시에)
+num|몇 분 걸려요?|எத்தனை நிமிஷம் ஆகும்?|எத்தனை நிமிடம் ஆகும்?|ஆகும்=ஆகு|쓰임: 걸리는 시간을 분으로 물을 때 ¶ 짜임: எத்தனை(몇) + நிமிடம்(분) + ஆகும்(될 것이다) ¶ 말과 글: 글 நிமிடம் → 말 நிமிஷம்
+num|5분 뒤에요|அஞ்சு நிமிஷத்துல|ஐந்து நிமிடத்தில்|நிமிடத்தில்=நிமிடம்|쓰임: '5분 안에, 5분 뒤에'. 버스나 사람이 곧 온다고 할 때 자주 들음 ¶ 짜임: ஐந்து(5) + நிமிடத்தில்(분 안에 - நிமிடம் + 처격 -இல்) ¶ 말과 글: 글 ஐந்து → 말 அஞ்சு, 글 நிமிடத்தில் → 말 நிமிஷத்துல: 처격 어미 -இல் → -உல
 num|오늘|இன்னிக்கு|இன்று||쓰임: 오늘 ¶ 말과 글: 글 இன்று → 말 இன்னிக்கு: '오늘에(இன்றைக்கு)'의 입말 꼴을 그대로 '오늘'로 씀
 num|내일|நாளைக்கு|நாளை||쓰임: 내일 ¶ 말과 글: 글 நாளை → 말 நாளைக்கு: '내일에'의 꼴을 그대로 '내일'로 씀
 num|어제|நேத்து|நேற்று||쓰임: 어제 ¶ 말과 글: 글 நேற்று → 말 நேத்து: -ற்று-가 말에서 -த்து-로 바뀜
@@ -2375,45 +2529,52 @@ function convCard(p, idx) {
     ${p.x ? `<div class="cv-notes">${p.x.split(" ¶ ").map(t => { const m = t.match(/^([^:]{1,8}): (.*)$/); return `<p class="cv-note">${m ? `<b>${esc(m[1])}</b> ${taSpan(m[2])}` : taSpan(t)}</p>`; }).join("")}</div>` : ""}
   </article>`;
 }
-// 말과 글이 달라지는 규칙: [제목, [[글, 말], …] 예, 설명, 이 규칙이 쓰인 문장인지(말·글 형태를 직접 비교)]
+// 말과 글이 달라지는 규칙: [제목, [[글, 말, 뜻], …] 예, 설명, 이 규칙이 쓰인 문장인지(말·글 형태를 직접 비교)]
 const sideHas = (p, wrRe, spRe) => wrRe.test(p.wr) && spRe.test(p.sp);
 const mgItem = p => (p.x.split(" ¶ ").find(t => t.startsWith("말과 글:")) || "");
 const CONV_RULES = [
-  ["끝의 -ள் 빠짐", [["கொடுங்கள்", "குடுங்க"], ["நீங்கள்", "நீங்க"]], "-ங்கள்로 끝나는 존댓말 요청(~해 주세요)과 '당신(의)'의 끝 ள்이 말에서 빠짐. 가장 자주 보는 바뀜",
+  ["끝의 -ள் 빠짐", [["கொடுங்கள்", "குடுங்க", "주세요"], ["நீங்கள்", "நீங்க", "당신(존칭), 여러분"]], "-ங்கள்로 끝나는 존댓말 요청(~해 주세요)과 '당신(의)'의 끝 ள்이 말에서 빠짐. 가장 자주 보는 바뀜",
     p => sideHas(p, /ங்கள்/, /ங்க(?!ள்)/)],
-  ["존댓말 현재 -கிறீர்கள் → -கீங்க·-றீங்க", [["இருக்கிறீர்கள்", "இருக்கீங்க"], ["வருகிறீர்கள்", "வர்றீங்க"]], "'당신은 ~합니까/~하십니다'의 현재 어미가 줄어듦",
+  ["존댓말 현재 -கிறீர்கள் → -கீங்க·-றீங்க", [["இருக்கிறீர்கள்", "இருக்கீங்க", "(당신은) 있으십니다, 지내십니다"], ["வருகிறீர்கள்", "வர்றீங்க", "(당신은) 오십니다"]], "'당신은 ~합니까/~하십니다'의 현재 어미가 줄어듦",
     p => sideHas(p, /கிறீர்கள்/, /ீங்க/)],
-  ["현재 1인칭 -கிறேன் → -கேன்·-ரேன்", [["இருக்கிறேன்", "இருக்கேன்"], ["வருகிறேன்", "வரேன்"]], "'나는 ~한다, ~하겠다'의 현재 어미가 줄어듦",
+  ["현재 1인칭 -கிறேன் → -கேன்·-ரேன்", [["இருக்கிறேன்", "இருக்கேன்", "(나는) 있습니다, 지냅니다"], ["வருகிறேன்", "வரேன்", "(나는) 옵니다, 오겠습니다"]], "'나는 ~한다, ~하겠다'의 현재 어미가 줄어듦",
     p => sideHas(p, /கிறேன்/, /[கர]ேன்/) && !/[^க]கிறேன்/.test(p.sp)],
-  ["현재 3인칭 -கிறது → -குது·-க்கு", [["பசிக்கிறது", "பசிக்குது"], ["இருக்கிறது", "இருக்கு"], ["இருக்கிறதா", "இருக்கா"]], "'그것이 ~하다, 있다'의 현재 어미가 줄어듦. 물음 -ஆ가 붙으면 -க்கா",
+  ["현재 3인칭 -கிறது → -குது·-க்கு", [["பசிக்கிறது", "பசிக்குது", "배고프다"], ["இருக்கிறது", "இருக்கு", "(그것이) 있다"], ["இருக்கிறதா", "இருக்கா", "(그것이) 있어요?"]], "'그것이 ~하다, 있다'의 현재 어미가 줄어듦. 물음 -ஆ가 붙으면 -க்கா",
     p => sideHas(p, /கிறது|கிறதா/, /குது|இருக்கு|இருக்கா/)],
-  ["부사 어미 -ஆக → -ஆ", [["நன்றாக", "நல்லா"], ["மெதுவாக", "மெதுவா"]], "'~하게'를 만드는 -ஆக가 말에서 -ஆ로 줄어듦",
+  ["부사 어미 -ஆக → -ஆ", [["நன்றாக", "நல்லா", "잘, 좋게"], ["மெதுவாக", "மெதுவா", "천천히"]], "'~하게'를 만드는 -ஆக가 말에서 -ஆ로 줄어듦",
     p => sideHas(p, /ாக(ப்)?(\s|$)/, /ா(\s|$)/)],
-  ["완료 -விட்டது·-விட்டேன் → -இடுச்சு·-ட்டேன்", [["ஆகிவிட்டது", "ஆயிடுச்சு"], ["தவறிவிட்டேன்", "தவறிட்டேன்"]], "'~해 버렸다'(이미 끝남)를 나타내는 -விடு가 말에서 줄어듦",
+  ["완료 -விட்டது·-விட்டேன் → -இடுச்சு·-ட்டேன்", [["ஆகிவிட்டது", "ஆயிடுச்சு", "되어 버렸다, 이루어졌다"], ["தவறிவிட்டேன்", "தவறிட்டேன்", "(나는 길을) 잃었다, 빗나가 버렸다"]], "'~해 버렸다'(이미 끝남)를 나타내는 -விடு가 말에서 줄어듦",
     p => sideHas(p, /விட்ட/, /ட்டேன்|டுச்சு/)],
-  ["부정 -வில்லை → -லை", [["புரியவில்லை", "புரியலை"]], "'~하지 않았다, 않는다'의 부정 어미가 줄어듦. 말로는 더 짧게 புரியல라고도 함",
+  ["부정 -வில்லை → -லை", [["புரியவில்லை", "புரியலை", "이해가 안 된다"]], "'~하지 않았다, 않는다'의 부정 어미가 줄어듦. 말로는 더 짧게 புரியல라고도 함",
     p => sideHas(p, /[^இ]ல்லை|வில்லை/, /யலை|யல(\s|$)/)],
-  ["처격 -இல் → -ல·-உல", [["குடும்பத்தில்", "குடும்பத்துல"], ["முதலில்", "முதல்ல"]], "'~에, ~에서'를 나타내는 어미가 말에서 바뀜",
+  ["처격 -இல் → -ல·-உல", [["குடும்பத்தில்", "குடும்பத்துல", "가족 안에, 가족에서"], ["முதலில்", "முதல்ல", "먼저, 처음에"]], "'~에, ~에서'를 나타내는 어미가 말에서 바뀜",
     p => sideHas(p, /ில்(\s|$)/, /ல(\s|$)/)],
-  ["소리 ற்ற → த்த", [["நேற்று", "நேத்து"], ["சுற்றி", "சுத்தி"]], "ற가 겹친 소리가 말에서 த로 바뀜",
+  ["소리 ற்ற → த்த", [["நேற்று", "நேத்து", "어제"], ["சுற்றி", "சுத்தி", "돌아(다니며)"]], "ற가 겹친 소리가 말에서 த로 바뀜",
     p => sideHas(p, /ற்ற/, /த்த/)],
-  ["소리 ன்ற → ண்ண", [["ஒன்று", "ஒண்ணு"], ["ஒன்றும்", "ஒண்ணும்"]], "ன்ற 소리가 말에서 ண்ண로 바뀜",
+  ["소리 ன்ற → ண்ண", [["ஒன்று", "ஒண்ணு", "하나"], ["ஒன்றும்", "ஒண்ணும்", "아무것도, 하나도"]], "ன்ற 소리가 말에서 ண்ண로 바뀜",
     p => sideHas(p, /ன்ற/, /ண்ண/)],
-  ["소리 ந்த → ஞ்ச", [["புரிந்தது", "புரிஞ்சுது"]], "과거 꼴에서 자주 보이는 바뀜",
+  ["소리 ந்த → ஞ்ச", [["புரிந்தது", "புரிஞ்சுது", "이해했다(이해되었다)"]], "과거 꼴에서 자주 보이는 바뀜",
     p => sideHas(p, /ந்த/, /ஞ்ச/)],
-  ["소리 த்து → ச்சு", [["குறைத்து", "குறைச்சு"], ["தொலைத்துவிட்டேன்", "தொலைச்சிட்டேன்"]], "'~하고, ~해서'(동사 분사)에서 자주 보이는 바뀜",
+  ["소리 த்து → ச்சு", [["குறைத்து", "குறைச்சு", "줄여서"], ["தொலைத்துவிட்டேன்", "தொலைச்சிட்டேன்", "(나는) 잃어버렸다"]], "'~하고, ~해서'(동사 분사)에서 자주 보이는 바뀜",
     p => sideHas(p, /[ைி]த்து/, /ச்சு|ச்சி/)],
-  ["-ண்டு- → -ணு-", [["வேண்டும்", "வேணும்"], ["போக வேண்டும்", "போகணும்"]], "'필요하다, ~해야 한다'의 வேண்டும்이 줄어듦. 동사 뒤에서는 한 낱말로 붙음",
+  ["-ண்டு- → -ணு-", [["வேண்டும்", "வேணும்", "필요하다, 원한다"], ["போக வேண்டும்", "போகணும்", "가야 한다"]], "'필요하다, ~해야 한다'의 வேண்டும்이 줄어듦. 동사 뒤에서는 한 낱말로 붙음",
     p => sideHas(p, /வேண்டும்/, /ணும்/)],
-  ["கொடு → குடு", [["கொடுங்கள்", "குடுங்க"]], "'주다'의 첫 모음이 말에서 바뀜",
+  ["கொடு → குடு", [["கொடுங்கள்", "குடுங்க", "주세요"]], "'주다'의 첫 모음이 말에서 바뀜",
     p => sideHas(p, /கொடு/, /குடு/)],
-  ["센소리 앞 겹침 (글에만)", [["எனக்குக் கொஞ்சம்", "எனக்கு கொஞ்சம்"], ["மெதுவாகப் பேசுங்கள்", "மெதுவா பேசுங்க"]], "글에서는 뒤 낱말이 க·ச·த·ப로 시작하면 앞 낱말 끝에 같은 자음(க் ச் த் ப்)을 덧붙여 적음. 말에서는 보통 하지 않음",
+  ["센소리 앞 겹침 (글에만)", [["எனக்குக் கொஞ்சம்", "எனக்கு கொஞ்சம்", "나에게 조금"], ["மெதுவாகப் பேசுங்கள்", "மெதுவா பேசுங்க", "천천히 말해 주세요"]], "글에서는 뒤 낱말이 க·ச·த·ப로 시작하면 앞 낱말 끝에 같은 자음(க் ச் த் ப்)을 덧붙여 적음. 말에서는 보통 하지 않음",
     p => (p.wr.match(/[கசதப]்\s+[கசதப]/g) || []).length > (p.sp.match(/[கசதப]்\s+[கசதப]/g) || []).length],
-  ["다른 낱말을 씀", [["மிகவும்", "ரொம்ப"], ["பேருந்து", "பஸ்"]], "글은 순수 타밀어, 말은 산스크리트에서 온 말이나 영어 낱말을 쓰는 일이 많음. 카드의 '말과 글'에 ↔로 표시",
+  ["다른 낱말을 씀", [["மிகவும்", "ரொம்ப", "매우, 아주"], ["பேருந்து", "பஸ்", "버스"]], "글은 순수 타밀어, 말은 산스크리트에서 온 말이나 영어 낱말을 쓰는 일이 많음. 카드의 '말과 글'에 ↔로 표시",
     p => mgItem(p).includes("↔")],
 ];
 let rulesOpen = false;
 try { rulesOpen = localStorage.getItem("conv-rules") === "1"; } catch {}
+// 규칙의 예 하나: 뜻, 글 형태와 말 형태를 각각 발음·듣기와 함께
+const exHangul = w => w.split(" ").map(x => CORE_BY_WORD.get(x)?.h || toHangul(x)).join(" ");
+function ruleExample(w, sp, ko) {
+  const side = (lab, t) => `<div class="cv-rx-side"><span class="cv-lab">${lab}</span><span class="cv-rx-ta" lang="ta">${t}</span>${numSpk(t)}
+    <span class="cv-rx-p"><i>${esc(toRoman(t))}</i> · ${esc(exHangul(t))}</span></div>`;
+  return `<div class="cv-rx"><p class="cv-rx-ko">${esc(ko)}</p>${side("글", w)}<span class="cv-rx-arrow" aria-hidden="true">↓</span>${side("말", sp)}</div>`;
+}
 function rulesBlock() {
   const catName = Object.fromEntries(CONV_CATS.map(([c, n]) => [c, n]));
   return `<details class="cv-rules" id="cv-rules"${rulesOpen ? " open" : ""}>
@@ -2424,7 +2585,7 @@ function rulesBlock() {
       const shown = hits.slice(0, 8);
       return `<section class="cv-rule">
         <h4>${esc(title)} <span>${hits.length}문장</span></h4>
-        <p class="cv-rule-ex">${exs.map(([w, s]) => `<span class="cv-lab">글</span><span lang="ta">${w}</span> → <span class="cv-lab">말</span><span lang="ta">${s}</span>`).join("<br>")}</p>
+        <div class="cv-rule-ex">${exs.map(([w, sp, ko]) => ruleExample(w, sp, ko)).join("")}</div>
         <p class="cv-rule-d">${esc(desc)}</p>
         <div class="cv-rule-links">${shown.map(([p, i]) => `<button type="button" class="cv-w" data-card="${i}">${esc(catName[p.c])} · ${esc(p.k)}</button>`).join("")}${hits.length > shown.length ? `<span class="cv-more">외 ${hits.length - shown.length}문장</span>` : ""}</div>
       </section>`;
@@ -2522,6 +2683,13 @@ function runSearch() {
 $("search-btn").addEventListener("click", runSearch);
 $("alpha-btn").addEventListener("click", () => showAlphabet($("alphabet").hidden));
 $("conv-btn").addEventListener("click", () => showConv($("conv").hidden));
+try { if (localStorage.getItem("about-open") === "0") $("about").open = false; } catch {}
+$("about").addEventListener("toggle", () => { try { localStorage.setItem("about-open", $("about").open ? "1" : "0"); } catch {} });
+$("about").addEventListener("click", e => {
+  const b = e.target.closest("[data-about]"); if (!b) return;
+  if (b.dataset.about === "conv") showConv(true);
+  else { showAlphabet(true); if (b.dataset.about === "num") $("num-sec").scrollIntoView({ block: "start" }); }
+});
 $("conv").addEventListener("toggle", e => { if (e.target.id === "cv-rules") { rulesOpen = e.target.open; try { localStorage.setItem("conv-rules", rulesOpen ? "1" : "0"); } catch {} } }, true);
 $("conv").addEventListener("click", e => {
   const c = e.target.closest("[data-cat]");
