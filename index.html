@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <meta name="description" content="타밀어 사전: 한국어 핵심 어휘와 Tamil Lexicon·Winslow·Wiktionary·WHO 싯다 용어 11만 표제어">
 <meta property="og:title" content="타밀 소사전">
 <meta property="og:description" content="타밀 문자·로마자로 찾는 타밀어 사전. 나디 잎·시바·싯다 용어와 한국어 풀이, 자모표.">
@@ -224,6 +225,36 @@ html:not(.translated-ltr):not(.translated-rtl) .orig { display: none; }
 .akc-spk { color: var(--muted); line-height: 0; align-self: center; }
 .akc-main:hover .akc-spk { color: var(--ink); }
 .akc-ex { border: 0; background: none; padding: 0 2px; font-size: 0.75rem; color: var(--muted); text-align: center; line-height: 1.4; min-height: 1.2em; overflow-wrap: anywhere; }
+.akc-main { user-select: none; -webkit-user-select: none; }
+.sk-card { display: grid; gap: 10px; align-content: start; }
+.sk-head { display: flex; gap: 12px; align-items: center; }
+.sk-g { font-family: var(--f-ta); font-size: 1.8rem; color: var(--ink); }
+.sk-count { display: block; font-size: 0.8rem; color: var(--muted); }
+.sk-play { display: grid; justify-items: center; padding: 4px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); flex: none; cursor: pointer; }
+.sk-play:hover { border-color: var(--ink); }
+.sk-anim { width: 96px; height: 86px; }
+.sk-anim path, .sk-frame path { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.sk-anim path { stroke: var(--ink); }
+@media (prefers-reduced-motion: no-preference) {
+  /* 차례가 오기 전의 획은 숨김: 숨기지 않으면 둥근 선 끝이 점으로 미리 보임 */
+  .sk-anim path { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; animation: sk-draw .8s ease-in-out forwards; }
+}
+@keyframes sk-draw { from { opacity: 1; stroke-dashoffset: 1; } to { opacity: 1; stroke-dashoffset: 0; } }
+.sk-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.sk-steps li { display: grid; grid-template-columns: 58px 1.5rem minmax(0, 1fr); gap: 8px; align-items: center; }
+.sk-frame { width: 58px; height: 52px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+.sk-frame .sk-done { stroke: var(--line); }
+.sk-frame .sk-now { stroke: var(--turmeric); }
+.sk-frame .sk-start { fill: var(--ink); }
+.st-n { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--turmeric); color: var(--bg); font-size: 0.75rem; font-weight: 600; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.st-n.cont { background: none; color: var(--muted); font-size: 0.95rem; }
+.st-t { font-size: 0.88rem; min-width: 0; }
+.sk-src { margin: 0; font-size: 0.75rem; color: var(--muted); }
+.sk-none { margin: 0; font-size: 0.92rem; line-height: 1.7; }
+.sk-dlg { border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: var(--bg); color: var(--fg); width: min(26rem, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: auto; }
+.sk-dlg::backdrop { background: rgb(0 0 0 / 0.45); }
+.sk-dlg-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.sk-dlg-top h3 { margin: 0; font-size: 1.05rem; }
 .akc-ex:hover { color: var(--ink); text-decoration: underline; }
 .akc-ex span { font-family: var(--f-ta); font-size: 0.9rem; }
 .vowel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 12px; }
@@ -1688,6 +1719,123 @@ const GRANTHA = [   // 그란타 문자(산스크리트 차용어용)
 ];
 const UYIR_IRREG = new Set(["கு", "கூ", "ஙு", "ஙூ", "சு", "சூ", "ஞு", "ஞூ", "டு", "டூ", "ணு", "ணூ", "து", "தூ", "நு", "நூ", "பு", "பூ", "மு", "மூ", "யு", "யூ", "ரு", "ரூ", "லு", "லூ", "வு", "வூ", "ழு", "ழூ", "ளு", "ளூ", "று", "றூ", "னு", "னூ"]);
 const EX_PRIORITY = ["basic", "num", "family", "shaiva", "temple", "nadi", "astro"];
+// ── 쓰는 순서 ──
+// 모음: 위키버시티 'Tamil Writing Vowels' 쓰기 그림(Wikimedia Commons, CC BY-SA 3.0)의 순서를 따름.
+// 글자 → [[SVG 경로, 설명, 이어서?] …]. 세 번째 값이 1이면 붓을 떼지 않고 앞 구간에서 이어 씀.
+const STROKES = {
+  "அ": [["M55 41 C55 46 50 49 46 47 C41 45 41 37 45 33 C50 29 60 30 66 35", "작은 고리 안쪽에서 시작해 고리를 한 바퀴 돌고 위로"],
+        ["M66 35 C72 40 72 50 67 58 C61 67 50 73 38 73 C25 73 13 68 13 62 C13 58 18 57 26 57", "오른쪽으로 크게 내려와 아래 그릇을 왼쪽으로 돎", 1],
+        ["M26 57 L84 57 L84 31", "가로줄을 오른쪽으로 긋고 세로줄 꼭대기까지 올라감", 1],
+        ["M84 31 L84 79", "그대로 세로줄을 끝까지 내려 그음", 1]],
+  "ஆ": [["M56 38 C56 43 51 45 48 43 C44 41 45 33 50 31 C56 29 65 32 68 38", "작은 고리 안쪽에서 시작해 고리를 돌고 위로"],
+        ["M68 38 C70 46 66 53 58 57 C48 61 35 62 25 61 C16 60 11 56 13 53 C14 51 18 51 24 51", "오른쪽으로 내려와 아래 그릇을 왼쪽으로 돎", 1],
+        ["M24 51 L72 51 L72 31", "가로줄을 오른쪽으로 긋고 세로줄 꼭대기까지 올라감", 1],
+        ["M72 31 L72 70", "세로줄을 아래로 내려 그음", 1],
+        ["M72 70 L72 58 C76 53 85 55 85 63 C85 70 78 73 68 73 C58 73 51 70 52 67 C53 64 59 64 63 67", "조금 되짚어 올라가 오른쪽 아래로 고리를 감고 왼쪽 안으로 끝냄", 1]],
+  "இ": [["M47 52 C42 52 40 46 43 42 C47 37 54 40 54 46", "가운데 작은 고리 안쪽에서 시작"],
+        ["M54 46 C54 54 46 64 38 72 C34 76 26 80 23 74", "왼쪽 아래로 비스듬히 내려감", 1],
+        ["M23 74 C21 68 30 60 44 59 C58 58 70 60 71 68 C72 76 62 79 55 77", "위로 돌아 오른쪽 아래 고리를 그림", 1],
+        ["M55 77 C48 75 40 66 30 58 C25 53 26 40 30 33", "왼쪽 위로 가로질러 올라감", 1],
+        ["M30 33 C36 23 48 20 58 22 C70 25 76 34 76 44 L76 62", "위를 크게 넘어 오른쪽 세로줄로 내려옴", 1]],
+  "ஈ": [["M16 80 L16 22", "왼쪽 세로줄을 아래에서 위로"],
+        ["M16 22 L87 22", "이어서 윗줄을 오른쪽 끝까지", 1],
+        ["M52 22 L52 80", "가운데 세로줄을 위에서 아래로"],
+        ["M37 50 L37 50.1", "왼쪽 점"],
+        ["M77 50 L77 50.1", "오른쪽 점"]],
+  "உ": [["M24 50 C20 54 14 50 14 46 C14 40 20 36 28 36", "왼쪽 위 작은 고리 안쪽에서 시작해 고리를 돌고 위로"],
+        ["M28 36 C40 35 50 40 50 49 C50 57 40 60 28 62 C18 64 12 68 14 73 C15 75 18 75 22 75", "오른쪽으로 둥글게 내려와 왼쪽 아래로 감아 돎", 1],
+        ["M22 75 L88 75", "바닥선을 오른쪽으로 길게", 1]],
+  "ஊ": [["M21 50 C17 54 11 50 11 46 C11 40 17 35 25 35", "왼쪽 위 작은 고리 안쪽에서 시작 (உ와 같음)"],
+        ["M25 35 C40 34 50 40 50 48 C50 57 40 60 28 62 C18 64 11 67 12 72 C13 75 16 75 20 75", "오른쪽으로 둥글게 내려와 왼쪽 아래로 감아 돎", 1],
+        ["M20 75 L88 75", "바닥선을 오른쪽 끝까지", 1],
+        ["M64 69 C61 69 60 65 63 63 C66 61 68 65 66 69 C63 74 57 72 56 66 C55 59 60 54 66 54 C71 54 73 58 73 62 L73 73", "붓을 떼고 오른쪽 작은 고리에서 시작해 둥글게 넘어 가운데 세로로 내려옴"],
+        ["M73 73 L73 53 L86 53", "되짚어 올라가 윗줄을 오른쪽으로", 1],
+        ["M86 53 L86 73", "오른쪽 세로줄을 내려 그음", 1]],
+  "எ": [["M24 64 C22 54 28 47 35 48 C42 49 46 56 45 63 C44 71 37 76 28 77", "안쪽 동그라미 왼쪽에서 시작해 위로 넘어 오른쪽으로 돌아 내려옴"],
+        ["M28 77 C18 77 11 68 11 56 C11 40 22 23 38 22", "왼쪽 바깥으로 크게 감아 올라감", 1],
+        ["M38 22 L80 22", "윗줄을 오른쪽으로", 1],
+        ["M72 22 L72 77", "세로줄을 위에서 아래로"]],
+  "ஏ": [["M30 56 C28 47 33 41 39 42 C45 43 49 49 48 55 C47 62 42 67 35 67", "안쪽 동그라미 왼쪽에서 시작해 위로 넘어 오른쪽으로 돌아 내려옴"],
+        ["M35 67 C25 67 18 60 18 50 C18 34 28 22 42 22", "왼쪽 바깥으로 크게 감아 올라감", 1],
+        ["M42 22 L83 22", "윗줄을 오른쪽으로", 1],
+        ["M68 22 L68 62", "세로줄을 위에서 아래로"],
+        ["M68 62 L48 80", "왼쪽 아래로 비스듬히 꼬리 (긴 ē 표시)", 1]],
+  "ஐ": [["M40 40 C36 45 26 44 24 37 C22 30 29 24 37 24 C45 24 49 31 49 40 L49 50", "왼쪽 위 고리 안쪽에서 시작해 고리를 돌고 가운데로 내려옴"],
+        ["M49 50 L49 32 C49 24 55 20 63 20 C72 20 77 26 77 34 C77 44 72 51 62 52", "되짚어 올라가 오른쪽 봉우리를 둥글게 넘어 내려옴", 1],
+        ["M62 52 L30 52 C24 52 21 58 21 65 C21 74 27 79 35 79 C43 79 49 74 49 66 L49 58", "가운데 가로줄을 왼쪽으로, 왼쪽 아래 그릇을 돌아 가운데로 올라옴", 1],
+        ["M49 58 L49 70 C49 76 55 79 63 79 C71 79 77 74 78 66 C78 62 76 59 73 57", "되짚어 내려와 오른쪽 아래 그릇을 돌고 끝을 안으로 살짝", 1]],
+  "ஒ": [["M37 47 C35 51 29 51 27 47 C25 42 29 37 34 37 C40 37 41 44 38 48 C33 54 25 51 24 43", "왼쪽 작은 고리 안쪽에서 시작"],
+        ["M24 43 C23 30 37 20 52 20 C66 20 75 30 75 42 C75 52 69 57 62 57 C55 57 53 49 56 44 C58 40 61 38 63 37", "위로 크게 넘어 오른쪽으로 내려온 뒤 안쪽으로 말아 올려 뾰족하게", 1],
+        ["M63 37 C56 38 50 44 51 51 C52 57 56 60 62 60 L76 60", "되돌아 내려와 꼬리를 오른쪽으로", 1],
+        ["M76 60 L58 60 C52 62 46 72 40 77 C35 80 28 78 28 71 C28 66 32 64 36 64", "되짚어 와서 왼쪽 아래로 휘어 갈고리로 끝냄", 1]],
+  "ஓ": [["M37 47 C35 51 29 51 27 47 C25 42 29 37 34 37 C40 37 41 44 38 48 C33 54 25 51 24 43", "왼쪽 작은 고리 안쪽에서 시작"],
+        ["M24 43 C23 30 37 20 52 20 C66 20 75 30 75 42 C75 52 69 57 62 57 C55 57 53 49 56 44 C58 40 61 38 63 37", "위로 크게 넘어 오른쪽으로 내려온 뒤 안쪽으로 말아 올려 뾰족하게", 1],
+        ["M63 37 C56 38 50 44 51 51 C52 57 56 60 62 60 L76 60", "되돌아 내려와 꼬리를 오른쪽으로", 1],
+        ["M76 60 L58 60 C52 62 46 72 40 77 C34 80 27 76 27 69 C27 63 33 60 38 62 C42 64 42 70 38 72", "되짚어 와서 왼쪽 아래에 동그라미를 닫음 (ஒ와 다른 곳)", 1]],
+  "ஔ": [["M21 50 C19 54 13 54 12 49 C10 44 14 40 18 40 C23 40 24 46 21 51 C17 56 10 52 10 45", "왼쪽 작은 고리 안쪽에서 시작 (ஒ와 같은 모양을 작게)"],
+        ["M10 45 C10 34 21 26 32 26 C42 26 49 33 49 42 C49 49 45 53 41 53 C37 53 36 47 38 44 C39 42 41 41 42 40", "위로 넘어 오른쪽으로 내려온 뒤 안쪽으로 말아 올림", 1],
+        ["M42 40 C37 41 34 46 35 51 C36 56 39 59 43 59 L58 59", "되돌아 내려와 꼬리를 오른쪽으로", 1],
+        ["M58 59 L42 59 C38 61 34 69 30 73 C27 76 21 76 20 71 C20 67 23 65 26 65", "되짚어 와서 왼쪽 아래로 휘어 갈고리", 1],
+        ["M66 73 C63 73 62 69 64 67 C67 65 69 69 68 72 C66 77 60 76 59 70 C58 64 62 60 67 60 C71 60 74 63 74 67 L74 77", "붓을 떼고 오른쪽 작은 고리에서 시작해 둥글게 넘어 가운데 세로로 내려옴 (ள 모양)"],
+        ["M74 77 L74 60 L87 60", "되짚어 올라가 윗줄을 오른쪽으로", 1],
+        ["M87 60 L87 77", "오른쪽 세로줄을 내려 그음", 1]],
+};
+const SK_BOX = "4 12 92 74";
+function strokeSvg(paths, upto, cls) {   // upto번째 구간까지, 마지막 구간은 강조하고 시작점 표시
+  return `<svg class="${cls}" viewBox="${SK_BOX}" aria-hidden="true">${paths.slice(0, upto + 1).map(([d], n) => {
+    if (n < upto) return `<path class="sk-done" d="${d}"/>`;
+    const [x, y] = d.slice(1).trim().split(/[\s,]+/);
+    return `<path class="sk-now" d="${d}"/><circle class="sk-start" cx="${x}" cy="${y}" r="5"/>`;
+  }).join("")}</svg>`;
+}
+function strokeAnim(paths) {
+  return `<svg class="sk-anim" viewBox="${SK_BOX}" aria-hidden="true">${paths.map(([d], n) =>
+    `<path d="${d}" pathLength="1" style="animation-delay:${n * 0.9}s"/>`).join("")}</svg>`;
+}
+function strokeCard(g, rom, paths) {
+  let k = 0;
+  const steps = paths.map(([, t, cont], n) => `<li>${strokeSvg(paths, n, "sk-frame")}${cont ? '<span class="st-n cont" title="붓을 떼지 않고 이어서">↳</span>' : `<span class="st-n">${++k}</span>`}<span class="st-t">${esc(t)}</span></li>`).join("");
+  return `<div class="sk-card">
+    <div class="sk-head">
+      <button type="button" class="sk-play" data-replay title="처음부터 다시 그리기" aria-label="처음부터 다시 그리기">${strokeAnim(paths)}</button>
+      <div><span class="sk-g" lang="ta">${g}</span> <span class="akc-i">${esc(rom)}</span><span class="sk-count">${k}획 · ↳는 붓을 떼지 않고 이어 쓰는 곳</span></div>
+    </div>
+    <ol class="sk-steps">${steps}</ol>
+    <p class="sk-src">순서는 Wikiversity <a href="https://en.wikiversity.org/wiki/Tamil_Writing_Vowels" target="_blank" rel="noopener">Tamil Writing Vowels</a>의 쓰기 그림(CC BY-SA 3.0)을 따라 그린 참고용입니다.</p>
+  </div>`;
+}
+// 자모 칸을 두 번 누르면 그 글자의 쓰는 순서를 팝업으로
+function showStrokePopup(glyph, rom) {
+  try { speechSynthesis.cancel(); } catch {}
+  ttsAudio?.pause?.();
+  let dlg = $("stroke-dlg");
+  if (!dlg) {
+    document.body.insertAdjacentHTML("beforeend", `<dialog class="sk-dlg" id="stroke-dlg" translate="no" lang="ko" aria-labelledby="sk-dlg-title">
+      <div class="sk-dlg-top"><h3 id="sk-dlg-title">쓰는 순서</h3><button type="button" class="btn" data-close>닫기</button></div>
+      <div id="sk-dlg-body"></div></dialog>`);
+    dlg = $("stroke-dlg");
+    dlg.addEventListener("click", e => {
+      if (e.target === dlg || e.target.closest("[data-close]")) { dlg.close(); return; }
+      if (e.target.closest("[data-replay]")) loopStroke();
+    });
+    dlg.addEventListener("close", () => clearTimeout(strokeTimer));
+  }
+  const paths = STROKES[glyph];
+  $("sk-dlg-body").innerHTML = paths ? strokeCard(glyph, rom, paths)
+    : `<p class="sk-none"><span class="sk-g" lang="ta">${glyph}</span> <span class="akc-i">${esc(rom)}</span><br>이 글자의 쓰는 순서는 아직 준비 중이에요. 지금은 모음 12자를 볼 수 있어요.</p>`;
+  dlg.showModal();
+  if (paths) loopStroke(paths.length, false);
+}
+// 팝업이 열려 있는 동안 획 그리기를 되풀이: 마지막 구간이 끝나고 잠깐 멈췄다가 처음부터
+let strokeTimer = 0, strokeLen = 0;
+function loopStroke(n = strokeLen, restart = true) {
+  strokeLen = n;
+  clearTimeout(strokeTimer);
+  const svg = document.querySelector("#sk-dlg-body .sk-anim");
+  if (!svg || !$("stroke-dlg").open) return;
+  if (restart) svg.replaceWith(svg.cloneNode(true));   // 새로 넣어야 애니메이션이 처음부터 다시 돎
+  strokeTimer = setTimeout(loopStroke, ((n - 1) * 0.9 + 0.8) * 1000 + 1500);
+}
 function exampleFor(letter) {
   const c = CORE.filter(e => (e.d.startsWith(letter) || (letter.length === 1 && e.d[0] === letter)) && !e.d.includes(" "));
   c.sort((a, b) => EX_PRIORITY.indexOf(a.c) - EX_PRIORITY.indexOf(b.c) || a.d.length - b.d.length);
@@ -1696,7 +1844,7 @@ function exampleFor(letter) {
 function alphaCell(rom, glyph, ko, tip, speakText) {
   const ex = exampleFor(glyph);
   return `<div class="akc">
-    <button type="button" class="akc-main" data-speak="${speakText || glyph}" title="${esc(tip || "")}">
+    <button type="button" class="akc-main" data-speak="${speakText || glyph}" data-glyph="${glyph}" data-rom="${esc(rom)}" title="${esc((tip ? tip + "\n" : "") + (STROKES[glyph] ? "두 번 누르면 쓰는 순서" : ""))}">
       <span class="akc-d" lang="ta">${glyph}</span>
       <span class="akc-line"><span class="akc-i">${esc(rom)}</span><span class="akc-k">${esc(ko)}</span>
         <span class="akc-spk"${canSpeak() ? "" : " hidden"}>${SPK_SVG}</span></span>
@@ -1715,7 +1863,7 @@ function renderAlphabet() {
     <header class="alpha-head">
       <h2>타밀 자모표 <span lang="ta">தமிழ் எழுத்துகள்</span></h2>
       <p>타밀 문자는 모음 12자(<span lang="ta">உயிர்</span>, '생명'), 자음 18자(<span lang="ta">மெய்</span>, '몸'), 그리고 특수 문자 ஃ 하나로 247자를 만듭니다. 자음과 모음이 만나 생긴 글자를 '생명이 든 몸'(<span lang="ta">உயிர்மெய்</span>)이라고 부릅니다. 한글 표기는 비슷한 소리일 뿐이니 요령을 함께 보세요.</p>
-      <p class="alpha-tip">${SPK_SVG.replace('width="16" height="16"', 'width="18" height="18" class="spk"')}<span><b>글자를 누르면 발음을 들을 수 있어요.</b> 글자 아래의 예시 단어를 누르면 사전에서 그 단어가 열립니다.</span></p>
+      <p class="alpha-tip">${SPK_SVG.replace('width="16" height="16"', 'width="18" height="18" class="spk"')}<span><b>글자를 누르면 발음을 들을 수 있어요.</b> 글자 아래의 예시 단어를 누르면 사전에서 그 단어가 열립니다. <b>모음 칸을 두 번 누르면(더블클릭) 쓰는 순서</b>를 한 획씩 그려 보여 줍니다.</span></p>
     </header>
 
     <section class="alpha-sec">
@@ -1849,6 +1997,10 @@ function runSearch() {
 }
 $("search-btn").addEventListener("click", runSearch);
 $("alpha-btn").addEventListener("click", () => showAlphabet($("alphabet").hidden));
+$("alphabet").addEventListener("dblclick", e => {
+  const c = e.target.closest("[data-glyph]");
+  if (c) { e.preventDefault(); showStrokePopup(c.dataset.glyph, c.dataset.rom); }
+});
 $("alphabet").addEventListener("click", e => {
   const g = e.target.closest("[data-goto]");
   if (g) { showAlphabet(false); goTo(g.dataset.goto); return; }
