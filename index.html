@@ -2279,8 +2279,8 @@ function renderAlphabet() {
         if (v === "u" || v === "ū") {   // u·ū는 자음과 합쳐져 모양이 바뀌므로 기호만 따로 보이지 않음
           const ex = ["க", "ட", "ப", "த"].map(c => `<button type="button" class="vowel-sign" data-speak="${c + signs[n]}" title="눌러서 듣기"><span lang="ta">${c + signs[n]}</span><span>${esc(TA_C[c] + v)}</span></button>`).join("");
           return `<div class="vowel">${alphaCell(v, g, ko, tip)}
-          <div class="vowel-u"><span class="mat-none">정해진 기호 없음 — 자음마다 모양이 다름</span>${ex}</div>
-          <p class="vowel-tip">${esc(tip)}. 자음 뒤에서는 자음 아래쪽 획이 바뀌어 한 글자가 됩니다(<span lang="ta">${sample}</span>는 <span lang="ta">க</span> 끝이 아래로 말려 들어간 모양). 아래 '자음+모음' 표의 붉은 글자 줄을 보세요</p></div>`;
+          <div class="vowel-u"><span class="mat-none">자음마다 모양이 다름</span>${ex}</div>
+          ${v === "u" ? `<p class="vowel-tip">단어 끝에서는 '으'처럼 약해짐</p>` : ""}</div>`;
         }
         return `<div class="vowel">${alphaCell(v, g, ko, tip)}
           <button type="button" class="vowel-sign" data-speak="${sample}" title="모음 기호와, 자음 க에 붙인 모양 (눌러서 듣기)">${signs[n] ? `<span lang="ta" class="mat">◌${signs[n]}</span><span class="mat-arrow">→</span>` : `<span class="mat-none">기호 없음</span>`}<span lang="ta">${sample}</span><span>k${esc(v)}</span></button>
