@@ -379,6 +379,9 @@ button.nm-w:hover { text-decoration: underline; }
 .vowel { display: grid; gap: 6px; align-content: start; min-width: 0; }
 .vowel-sign { display: flex; flex-wrap: wrap; max-width: 100%; justify-content: center; align-items: baseline; gap: 2px 8px; font-size: 0.85rem; color: var(--muted); border: 1px dashed var(--line); background: transparent; border-radius: 6px; padding: 2px 8px; justify-self: center; }
 .vowel-sign:hover { border-color: var(--ink); }
+.vowel-u { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.vowel-u .mat-none { flex-basis: 100%; text-align: center; font-size: 0.75rem; color: var(--muted); }
+.vowel-u .vowel-sign { gap: 0 4px; padding-inline: 6px; }
 .vowel-sign [lang="ta"] { font-size: 1.35rem; color: var(--fg); }
 .vowel-sign .mat { color: var(--turmeric); }
 .vowel-sign .mat-arrow, .vowel-sign .mat-none { font-size: 0.75rem; color: var(--muted); }
@@ -1217,7 +1220,7 @@ const COMMONS = "https://upload.wikimedia.org/wikipedia/commons/";
 // ── 글자 나누기(쓰는 법): 글자마다 자음 + 모음 기호가 어디에 붙는지 ──
 const SIGN_HOW = {
   "ா": "오른쪽에 ா를 붙임", "ி": "오른쪽 위에 고리(ி)를 붙임", "ீ": "오른쪽 위에 말린 고리(ீ)를 붙임",
-  "ு": "아래에 고리를 붙임 — 자음마다 모양이 달라서 따로 익힘", "ூ": "아래에 긴 고리를 붙임 — 자음마다 모양이 달라서 따로 익힘",
+  "ு": "따로 붙는 기호가 아니라 자음 아래쪽이 바뀌어 한 글자로 합쳐짐(கு, டு, பு, து …) — 자음마다 모양이 달라서 따로 익힘", "ூ": "u처럼 자음과 한 글자로 합쳐지고 끝이 더 길게 말림(கூ, டூ, பூ, தூ …) — 자음마다 모양이 달라서 따로 익힘",
   "ெ": "자음 왼쪽에 ெ — 쓰기는 왼쪽이 먼저지만 읽기는 자음 다음", "ே": "자음 왼쪽에 ே — 읽기는 자음 다음",
   "ை": "자음 왼쪽에 ை — 읽기는 자음 다음", "ொ": "왼쪽에 ெ, 오른쪽에 ா (양쪽으로 감쌈)", "ோ": "왼쪽에 ே, 오른쪽에 ா (양쪽으로 감쌈)",
   "ௌ": "왼쪽에 ெ, 오른쪽에 ள 모양 (드묾)",
@@ -2270,9 +2273,15 @@ function renderAlphabet() {
 
     <section class="alpha-sec">
       <h3>모음 <span class="sub"><span lang="ta">உயிர் எழுத்து</span> · 12자</span></h3>
-      <p class="alpha-note">앞에 자음이 없을 때(단어 첫머리)는 <b>큰 글자</b>를 쓰고, 자음 뒤에서는 <b>모음 기호</b>를 자음에 붙입니다. 점선 칸에 모음 기호와, 그것을 <span lang="ta">க</span>(ka)에 붙인 모양이 나옵니다. <span lang="ta">ெ ே ை</span>는 자음 <b>왼쪽</b>에 쓰지만 읽기는 자음 다음에 읽어요(<span lang="ta">கெ</span> = k + e). 짧은 a는 자음 글자에 이미 들어 있어서(<span lang="ta">க</span> = ka) 기호가 없습니다.</p>
+      <p class="alpha-note">앞에 자음이 없을 때(단어 첫머리)는 <b>큰 글자</b>를 쓰고, 자음 뒤에서는 <b>모음 기호</b>를 자음에 붙입니다. 점선 칸에 모음 기호와, 그것을 <span lang="ta">க</span>(ka)에 붙인 모양이 나옵니다. 다만 <b>u·ū는 기호가 따로 없고</b> 자음과 합쳐져 자음마다 모양이 달라지므로, 여러 자음의 예를 보였습니다. <span lang="ta">ெ ே ை</span>는 자음 <b>왼쪽</b>에 쓰지만 읽기는 자음 다음에 읽어요(<span lang="ta">கெ</span> = k + e). 짧은 a는 자음 글자에 이미 들어 있어서(<span lang="ta">க</span> = ka) 기호가 없습니다.</p>
       <div class="vowel-grid">${ALPHA_VOWELS.map(([v, g, ko, tip], n) => {
         const sample = "க" + signs[n];
+        if (v === "u" || v === "ū") {   // u·ū는 자음과 합쳐져 모양이 바뀌므로 기호만 따로 보이지 않음
+          const ex = ["க", "ட", "ப", "த"].map(c => `<button type="button" class="vowel-sign" data-speak="${c + signs[n]}" title="눌러서 듣기"><span lang="ta">${c + signs[n]}</span><span>${esc(TA_C[c] + v)}</span></button>`).join("");
+          return `<div class="vowel">${alphaCell(v, g, ko, tip)}
+          <div class="vowel-u"><span class="mat-none">정해진 기호 없음 — 자음마다 모양이 다름</span>${ex}</div>
+          <p class="vowel-tip">${esc(tip)}. 자음 뒤에서는 자음 아래쪽 획이 바뀌어 한 글자가 됩니다(<span lang="ta">${sample}</span>는 <span lang="ta">க</span> 끝이 아래로 말려 들어간 모양). 아래 '자음+모음' 표의 붉은 글자 줄을 보세요</p></div>`;
+        }
         return `<div class="vowel">${alphaCell(v, g, ko, tip)}
           <button type="button" class="vowel-sign" data-speak="${sample}" title="모음 기호와, 자음 க에 붙인 모양 (눌러서 듣기)">${signs[n] ? `<span lang="ta" class="mat">◌${signs[n]}</span><span class="mat-arrow">→</span>` : `<span class="mat-none">기호 없음</span>`}<span lang="ta">${sample}</span><span>k${esc(v)}</span></button>
           <p class="vowel-tip">${esc(tip)}</p></div>`;
