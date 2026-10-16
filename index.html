@@ -437,7 +437,7 @@ footer p { margin: 0; }
   </div>
   <header translate="no" lang="ko">
     <h1><span class="ta" lang="ta">அகராதி</span> 타밀 소사전</h1>
-    <div class="head-right"><span class="count" id="count"></span><button type="button" class="btn" id="about-btn" aria-pressed="false">타밀어란?</button><button type="button" class="btn" id="conv-btn" aria-pressed="false">회화 배우기</button><button type="button" class="btn" id="gram-btn" aria-pressed="false">기초 문법</button><button type="button" class="btn" id="alpha-btn" aria-pressed="false">자음+모음 보기</button></div>
+    <div class="head-right"><span class="count" id="count"></span><button type="button" class="btn" id="about-btn" aria-pressed="false">타밀어란?</button><button type="button" class="btn" id="gram-btn" aria-pressed="false">기초 문법</button><button type="button" class="btn" id="conv-btn" aria-pressed="false">회화 배우기</button><button type="button" class="btn" id="alpha-btn" aria-pressed="false">자음+모음 보기</button></div>
   </header>
 
   <div class="searchbar" translate="no" lang="ko">
@@ -461,7 +461,7 @@ footer p { margin: 0; }
           <li>모리셔스·피지 등과, 캐나다·영국 등의 이주민 사회</li></ul></section>
       <section class="about-card"><h3>말과 글</h3>
         <p>말하는 타밀어와 글로 쓰는 타밀어가 크게 다른 <b>양층 언어</b>입니다. 같은 말도 글로는 <span lang="ta">இருக்கிறேன்</span>, 말로는 <span lang="ta">இருக்கேன்</span>(있다)처럼 다릅니다.</p>
-        <p class="about-links"><button type="button" class="btn" data-about="conv">회화 배우기</button><button type="button" class="btn" data-about="gram">기초 문법</button><button type="button" class="btn" data-about="alpha">자모표</button><button type="button" class="btn" data-about="num">숫자 읽기</button></p></section>
+        <p class="about-links"><button type="button" class="btn" data-about="gram">기초 문법</button><button type="button" class="btn" data-about="conv">회화 배우기</button><button type="button" class="btn" data-about="alpha">자모표</button><button type="button" class="btn" data-about="num">숫자 읽기</button></p></section>
     </div>
     <h3 class="about-h">역사 이야기</h3>
     <ul class="about-story">
@@ -2686,6 +2686,26 @@ const GR_VERBS = [
 const GR_IMP = [["오다", ["வா", "와!"], ["வாருங்கள்", "오세요", "வாங்க"]], ["가다", ["போ", "가!"], ["போங்கள்", "가세요", "போங்க"]],
   ["말하다", ["சொல்", "말해!"], ["சொல்லுங்கள்", "말해 주세요", "சொல்லுங்க"]], ["주다", ["கொடு", "줘!"], ["கொடுங்கள்", "주세요", "குடுங்க"]],
   ["읽다", ["படி", "읽어!"], ["படியுங்கள்", "읽어 주세요", "படிங்க"]]];
+// 대명사의 격: [대명사, 뜻, [[꼴, 뜻] …]]
+const GR_PRON_CASE = [
+  ["நான்", "나", [["என்னை", "나를"], ["எனக்கு", "나에게"], ["என்", "나의, 내"], ["என்னிடம்", "나한테"], ["என்னால்", "나로서, 내 힘으로"]]],
+  ["நீ", "너", [["உன்னை", "너를"], ["உனக்கு", "너에게"], ["உன்", "너의, 네"]]],
+  ["நீங்கள்", "당신", [["உங்களை", "당신을"], ["உங்களுக்கு", "당신에게"], ["உங்கள்", "당신의"], ["உங்களிடம்", "당신한테"]]],
+  ["அவர்", "그분", [["அவரை", "그분을"], ["அவருக்கு", "그분에게"], ["அவருடைய", "그분의"], ["அவரிடம்", "그분한테"]]],
+  ["நாங்கள்", "우리", [["எங்கள்", "우리의"], ["எங்களுக்கு", "우리에게"]]],
+];
+const GR_ADJ = [["நல்ல", "좋은"], ["பெரிய", "큰"], ["சின்ன", "작은(말)"], ["சிறிய", "작은(글)"], ["புதிய", "새로운"], ["பழைய", "낡은, 옛"], ["அழகான", "아름다운"]];
+const GR_ADV = [["நன்றாக", "잘", "நல்லா"], ["மெதுவாக", "천천히", "மெதுவா"], ["வேகமாக", "빨리", "வேகமா"], ["அழகாக", "아름답게", "அழகா"]];
+// ~하고·~해서: [분사, 뜻, 말]
+const GR_CONJ = [["சாப்பிட்டு", "먹고"], ["வந்து", "와서"], ["போய்", "가서", "போயி"], ["பார்த்து", "보고", "பாத்து"], ["படித்து", "읽고", "படிச்சு"], ["கேட்டு", "듣고, 묻고"]];
+// 관형형: [꼴, 뜻]
+const GR_REL = [["படித்த", "읽은 (과거)"], ["படிக்கிற", "읽는 (지금)"], ["படிக்கும்", "읽는, 읽을 (늘·앞으로)"], ["வந்த", "온"], ["போன", "간; 지난"], ["கொடுத்த", "준"]];
+const GR_COND = [["வந்தால்", "오면", "வந்தா"], ["போனால்", "가면", "போனா"], ["இருந்தால்", "있으면", "இருந்தா"], ["கிடைத்தால்", "얻으면, 구하면", "கிடைச்சா"]];
+const GR_WHEN = [["படிக்கும்போது", "읽을 때, 공부할 때"], ["போகும்போது", "갈 때"], ["சாப்பிடும்போது", "먹을 때"], ["வந்தபோது", "왔을 때"]];
+// 한 낱말로 붙은 꼴은 사전에 따로 없으므로 기본형으로 찾음
+const GR_LEMMA = { "படித்துக்கொண்டிருக்கிறேன்": "படி", "படித்துக்கொண்டிருந்தேன்": "படி", "வந்துவிட்டேன்": "வா", "படிக்கும்போது": "படி", "போகும்போது": "போ",
+  "சாப்பிடும்போது": "சாப்பிடு", "வந்தபோது": "வா", "நானும்": "நான்", "அம்மாவும்": "அம்மா", "அப்பாவும்": "அப்பா", "அதைவிடப்": "அது", "அதைவிட": "அது",
+  "பெரியது": "பெரிய", "வேகமாக": "வேகம்", "அழகாக": "அழகு", "அழகான": "அழகு" };
 const GR_Q = [["என்ன", "무엇"], ["யார்", "누구"], ["எங்கே", "어디"], ["எப்போது", "언제"], ["ஏன்", "왜"], ["எப்படி", "어떻게"], ["எவ்வளவு", "얼마, 얼마나"], ["எந்த", "어느"]];
 const GR_SENT = {
   order: [["நான் தமிழ் படிக்கிறேன்.", "나는 타밀어를 공부합니다.", "나는 · 타밀어(를) · 공부합니다", "நான் தமிழ் படிக்கறேன்."],
@@ -2706,10 +2726,34 @@ const GR_SENT = {
     ["என்னால் வர முடியும்.", "나는 올 수 있습니다.", "나로서 · 오기 · 가능하다", "என்னால வர முடியும்."],
     ["என்னால் வர முடியாது.", "나는 올 수 없습니다.", "나로서 · 오기 · 불가능하다", "என்னால வர முடியாது."],
     ["போகலாமா?", "가도 될까요? (갈까요?)", "가도 될까?"]],
+  dat: [["எனக்குப் பசிக்கிறது.", "배고파요.", "나에게 · 배고프다", "எனக்கு பசிக்குது."],
+    ["எனக்குத் தமிழ் தெரியும்.", "저는 타밀어를 할 줄 압니다.", "나에게 · 타밀어(가) · 알려져 있다", "எனக்கு தமிழ் தெரியும்."],
+    ["எனக்குத் தமிழ் தெரியாது.", "저는 타밀어를 몰라요.", "나에게 · 타밀어(가) · 알려져 있지 않다", "எனக்கு தமிழ் தெரியாது."],
+    ["எனக்கு இது பிடிக்கும்.", "저는 이것을 좋아합니다.", "나에게 · 이것(이) · 마음에 든다"],
+    ["எனக்குப் புரியவில்லை.", "이해가 안 돼요.", "나에게 · 이해되지 않는다", "எனக்கு புரியலை."],
+    ["எனக்குத் தண்ணீர் வேண்டும்.", "물이 필요해요(물 주세요).", "나에게 · 물(이) · 필요하다", "எனக்கு தண்ணி வேணும்."]],
+  adj: [["இது நல்ல ஊர்.", "여기는 좋은 마을입니다.", "이것(은) · 좋은 · 마을"],
+    ["இது பெரியது.", "이것은 큽니다.", "이것(은) · 큰 것", "இது பெரிசு."],
+    ["அவர் நன்றாகப் பேசுகிறார்.", "그분은 말을 잘합니다.", "그분(은) · 잘 · 말한다", "அவர் நல்லா பேசுறார்."]],
+  conj: [["நான் சாப்பிட்டுப் போவேன்.", "저는 먹고 가겠습니다.", "나는 · 먹고 · 가겠다", "நான் சாப்பிட்டு போவேன்."],
+    ["நான் கோயிலுக்குப் போய்ப் பார்த்தேன்.", "저는 사원에 가서 보았습니다.", "나는 · 사원에 · 가서 · 보았다", "நான் கோயிலுக்கு போயி பாத்தேன்."]],
+  prog: [["நான் படித்துக்கொண்டிருக்கிறேன்.", "저는 공부하고 있습니다.", "나는 · 공부하고 있다", "நான் படிச்சுக்கிட்டு இருக்கேன்."],
+    ["நான் படித்துக்கொண்டிருந்தேன்.", "저는 공부하고 있었습니다.", "나는 · 공부하고 있었다", "நான் படிச்சுக்கிட்டு இருந்தேன்."],
+    ["நான் வந்துவிட்டேன்.", "저 왔어요(도착했어요).", "나는 · 와 버렸다", "நான் வந்துட்டேன்."]],
+  rel: [["நான் படித்த புத்தகம்", "내가 읽은 책", "나(가) · 읽은 · 책"],
+    ["நேற்று வந்த ஆள் யார்?", "어제 온 사람은 누구예요?", "어제 · 온 · 사람(은) · 누구"],
+    ["போன வாரம்", "지난주", "지난 · 주"]],
+  cond: [["நேரம் இருந்தால் வருவேன்.", "시간이 있으면 오겠습니다.", "시간(이) · 있으면 · 오겠다", "நேரம் இருந்தா வருவேன்."],
+    ["நான் சென்னைக்கு வந்தபோது மழை பெய்தது.", "제가 첸나이에 왔을 때 비가 왔습니다.", "내가 · 첸나이에 · 왔을 때 · 비(가) · 내렸다"]],
+  um: [["நானும் வருகிறேன்.", "저도 갈게요(옵니다).", "나도 · 온다", "நானும் வரேன்."],
+    ["அம்மாவும் அப்பாவும் வீட்டில் இருக்கிறார்கள்.", "어머니와 아버지는 집에 계십니다.", "어머니도 · 아버지도 · 집에 · 계신다", "அம்மாவும் அப்பாவும் வீட்டுல இருக்காங்க."],
+    ["இது அதைவிடப் பெரியது.", "이것이 그것보다 큽니다.", "이것(이) · 그것보다 · 큰 것", "இது அதைவிட பெரிசு."]],
+  quote: [["அவர் நாளை வருவார் என்று சொன்னார்.", "그분이 내일 오신다고 말했습니다.", "그분(이) · 내일 · 오실 것이다 · 라고 · 말했다", "அவர் நாளைக்கு வருவார்னு சொன்னார்."],
+    ["ஆமாம் என்று சொல்லுங்கள்.", "'네'라고 말하세요.", "네 · 라고 · 말하세요", "ஆமான்னு சொல்லுங்க."]],
 };
 const grClean = t => t.replace(/[?!.,]/g, "");
 // 글에서 뒤 낱말 때문에 덧붙인 자음(கோயிலுக்குப்의 ப்)은 떼고 사전에서 찾음
-const grLemma = w => grClean(w).replace(/([^\s்])([கசதப]்)$/, "$1");
+const grLemma = w => { const c = grClean(w), b = c.replace(/([^\s்])([கசதப]்)$/, "$1"); return GR_LEMMA[c] || GR_LEMMA[b] || b; };
 const grPron = t => `<span class="gr-p"><i>${esc(toRoman(grClean(t)))}</i> · ${esc(exHangul(grClean(t)))}</span>`;
 function grWord(t, ko, sp) {
   return `<div class="gr-w"><div class="gr-wl"><button type="button" class="gr-ta" data-lemma="${esc(grLemma(t))}" lang="ta" title="사전에서 찾기">${t}</button>${numSpk(t)}</div>
@@ -2731,7 +2775,9 @@ const gi = (t, ko) => `<span class="gr-i"><span lang="ta">${t}</span>${numSpk(t)
 const grSents = k => `<div class="gr-sents">${GR_SENT[k].map(grSent).join("")}</div>`;
 const grBox = (head, words) => `<section class="gr-box"><h4>${head}</h4><div class="gr-box-row">${words}</div></section>`;
 const GR_TOC = [["gr-order", "1. 어순"], ["gr-pron", "2. 대명사"], ["gr-case", "3. 명사 + 격 어미"], ["gr-be", "4. ~이다·있다·없다"], ["gr-verb", "5. 동사 시제"],
-  ["gr-neg", "6. 부정"], ["gr-q", "7. 물음"], ["gr-imp", "8. 부탁·명령"], ["gr-aux", "9. ~해야·~할 수 있다"]];
+  ["gr-neg", "6. 부정"], ["gr-q", "7. 물음"], ["gr-imp", "8. 부탁·명령"], ["gr-aux", "9. ~해야·~할 수 있다"],
+  ["gr-dat", "10. 나에게 ~하다"], ["gr-adj", "11. 형용사·부사"], ["gr-conj", "12. ~하고·~해서"], ["gr-prog", "13. ~하고 있다"], ["gr-rel", "14. ~한 + 명사"],
+  ["gr-cond", "15. ~하면·~할 때"], ["gr-um", "16. ~도·~와·~보다"], ["gr-quote", "17. ~라고"]];
 let gramDone = false;
 function renderGram() {
   if (gramDone) return;
@@ -2752,7 +2798,10 @@ function renderGram() {
       <p class="alpha-note">'그'는 남자·여자·높임·사물을 다른 낱말로 나눕니다. '우리'도 듣는 사람을 넣는지(<span lang="ta">நாம்</span>) 빼는지(<span lang="ta">நாங்கள்</span>)에 따라 다릅니다. 처음 만난 사람이나 윗사람에게는 <span lang="ta">நீங்கள்</span>(당신)과 <span lang="ta">அவர்</span>(그분)를 씁니다.</p>
       <div class="gr-grid">${GR_PRON.map(([t, k]) => grWord(t, k)).join("")}</div>
       <p class="alpha-note"><b>이·그·어느:</b> 한국어 '이·그'처럼 첫소리로 가까움과 물음을 나눕니다. <span lang="ta">இ-</span>는 가까운 것, <span lang="ta">அ-</span>는 먼 것, <span lang="ta">எ-</span>는 물음입니다.</p>
-      <div class="gr-grid">${GR_DEM.map(([t, k]) => grWord(t, k)).join("")}</div></section>
+      <div class="gr-grid">${GR_DEM.map(([t, k]) => grWord(t, k)).join("")}</div>
+      <p class="alpha-note"><b>나를·나에게·나의:</b> 대명사에도 3번의 격 어미가 붙습니다. 다만 '나'는 <span lang="ta">என்-</span>, '너'는 <span lang="ta">உன்-</span>, '당신'은 <span lang="ta">உங்கள்-</span>, '우리'는 <span lang="ta">எங்கள்-</span>로 모양이 바뀝니다. '나의'는 어미 없이 <span lang="ta">என்</span>만 쓰는 일이 많습니다.</p>
+      <div class="gr-boxes">${GR_PRON_CASE.map(([p, k, fs]) =>
+        grBox(`<button type="button" class="gr-ta" data-lemma="${p}" lang="ta">${p}</button>${numSpk(p)} <span class="gr-kos">${esc(k)}</span>`, fs.map(([t, m]) => grWord(t, m)).join(""))).join("")}</div></section>
 
     <section class="alpha-sec" id="gr-case"><h3>3. 명사 + 격 어미 <span class="sub">한국어 조사와 같은 일</span></h3>
       <p class="alpha-note">명사 뒤에 어미를 붙여 '을/를, 에게, 에서'를 나타냅니다. 명사 끝소리에 따라 사이에 소리가 들어갑니다. 모음으로 끝나면 <span lang="ta">-வ்-</span>(<span lang="ta">அம்மா</span> → ${gi("அம்மாவை", "어머니를")}; '이·에·아이'로 끝나면 <span lang="ta">-ய்-</span>: ${gi("தம்பியை", "남동생을")}), <span lang="ta">-டு</span>로 끝나면 자음이 겹치고(<span lang="ta">வீடு</span> → <span lang="ta">வீட்டு-</span>), <span lang="ta">-அம்</span>으로 끝나면 <span lang="ta">-அத்து-</span>가 됩니다(<span lang="ta">மரம்</span> → <span lang="ta">மரத்து-</span>).</p>
@@ -2794,7 +2843,45 @@ function renderGram() {
 
     <section class="alpha-sec" id="gr-aux"><h3>9. ~해야 한다 · ~할 수 있다 · ~해도 된다</h3>
       <p class="alpha-note">동사 원형(${gi("போக", "가기")}, ${gi("வர", "오기")}) 뒤에 <span lang="ta">வேண்டும்</span>(필요하다)을 놓으면 '~해야 한다, ~하고 싶다', <span lang="ta">முடியும்</span>(가능하다)을 놓으면 '~할 수 있다'입니다. 할 수 있는 사람은 구격 <span lang="ta">-ஆல்</span>로 나타냅니다(<span lang="ta">என்னால்</span> 나로서). 어간에 <span lang="ta">-லாம்</span>을 붙이면 '~해도 된다, ~합시다'입니다.</p>
-      ${grSents("aux")}</section>`;
+      ${grSents("aux")}</section>
+
+    <section class="alpha-sec" id="gr-dat"><h3>10. 나에게 ~하다 <span class="sub">좋아하다·알다·배고프다</span></h3>
+      <p class="alpha-note">'좋아하다, 알다, 이해하다, 배고프다, 필요하다'는 '나에게(<span lang="ta">எனக்கு</span>) ~이 마음에 든다/알려져 있다'처럼 말합니다. 그래서 동사는 '나'에 맞춰 바뀌지 않고 늘 그것(3인칭) 꼴(<span lang="ta">-அது</span>, <span lang="ta">-உம்</span>)입니다. 한국어 '나는 ~이 좋다'와 비슷한 짜임입니다.</p>
+      ${grSents("dat")}</section>
+
+    <section class="alpha-sec" id="gr-adj"><h3>11. 형용사 · 부사</h3>
+      <p class="alpha-note">형용사는 명사 앞에 놓고 모양이 바뀌지 않습니다. '~하다(크다)'로 문장을 끝낼 때는 <span lang="ta">-அது</span>를 붙여 '큰 것'으로 만듭니다(<span lang="ta">பெரிய</span> → ${gi("பெரியது", "큰 것")}). 명사에 <span lang="ta">-ஆன</span>을 붙이면 형용사가 되고(${gi("அழகு", "아름다움")} → <span lang="ta">அழகான</span>), <span lang="ta">-ஆக</span>를 붙이면 부사가 됩니다(말에서는 <span lang="ta">-ஆ</span>).</p>
+      <div class="gr-grid">${GR_ADJ.map(([t, k]) => grWord(t, k)).join("")}</div>
+      <div class="gr-grid">${GR_ADV.map(([t, k, sp]) => grWord(t, k, sp)).join("")}</div>
+      ${grSents("adj")}</section>
+
+    <section class="alpha-sec" id="gr-conj"><h3>12. ~하고 · ~해서 <span class="sub">동사 잇기</span></h3>
+      <p class="alpha-note">동사 두 개를 이을 때 앞 동사를 '~하고, ~해서' 꼴(동사 분사)로 바꿉니다. 대부분 과거 '나는' 꼴에서 <span lang="ta">-ஏன்</span>을 떼고 <span lang="ta">-உ</span>를 붙인 모양입니다(${gi("வந்தேன்", "왔다")} → <span lang="ta">வந்து</span>). 이 꼴 뒤에 다른 동사를 붙여 13번의 '~하고 있다, ~해 버렸다'도 만듭니다.</p>
+      <div class="gr-grid">${GR_CONJ.map(([t, k, sp]) => grWord(t, k, sp)).join("")}</div>
+      ${grSents("conj")}</section>
+
+    <section class="alpha-sec" id="gr-prog"><h3>13. ~하고 있다 · ~해 버렸다</h3>
+      <p class="alpha-note">'~하고 있다'는 12번의 꼴에 <span lang="ta">கொண்டிரு</span>(쥐고 있다)를 붙여 한 낱말로 씁니다. 말에서는 <span lang="ta">-கிட்டு இரு</span>가 됩니다. '~해 버렸다, 다 ~했다'는 <span lang="ta">-விடு</span>를 붙이고, 말에서는 <span lang="ta">-ட்டேன்</span>으로 줄어듭니다.</p>
+      ${grSents("prog")}</section>
+
+    <section class="alpha-sec" id="gr-rel"><h3>14. ~한 + 명사 <span class="sub">관형형</span></h3>
+      <p class="alpha-note">'읽은 책, 온 사람'처럼 동사로 명사를 꾸밀 때는 과거 꼴의 어미를 떼고 <span lang="ta">-அ</span>를 붙입니다(${gi("படித்தேன்", "읽었다")} → <span lang="ta">படித்த</span>). 지금 하는 일은 <span lang="ta">-கிற</span>, 늘 하거나 앞으로 할 일은 <span lang="ta">-உம்</span>입니다. 한국어처럼 꾸미는 말이 앞에 옵니다.</p>
+      <div class="gr-grid">${GR_REL.map(([t, k]) => grWord(t, k)).join("")}</div>
+      ${grSents("rel")}</section>
+
+    <section class="alpha-sec" id="gr-cond"><h3>15. ~하면 · ~할 때</h3>
+      <p class="alpha-note"><b>~하면:</b> 과거 꼴의 어간에 <span lang="ta">-ஆல்</span>을 붙입니다(<span lang="ta">வந்த-</span> + <span lang="ta">-ஆல்</span> → <span lang="ta">வந்தால்</span>). 말에서는 <span lang="ta">-ஆ</span>로 줄어듭니다. <b>~할 때:</b> 14번의 관형형 뒤에 ${gi("போது", "때")}를 붙입니다.</p>
+      <div class="gr-grid">${GR_COND.map(([t, k, sp]) => grWord(t, k, sp)).join("")}</div>
+      <div class="gr-grid">${GR_WHEN.map(([t, k]) => grWord(t, k)).join("")}</div>
+      ${grSents("cond")}</section>
+
+    <section class="alpha-sec" id="gr-um"><h3>16. ~도 · ~와 · ~보다</h3>
+      <p class="alpha-note"><b>~도:</b> 낱말 끝에 <span lang="ta">-உம்</span>을 붙입니다(<span lang="ta">நான்</span> → ${gi("நானும்", "나도")}). <b>~와:</b> 두 낱말에 모두 <span lang="ta">-உம்</span>을 붙여 'A도 B도'처럼 말합니다. <b>~보다:</b> 비교 대상에 <span lang="ta">-ஐவிட</span>(~을 놓아두고)를 붙입니다.</p>
+      ${grSents("um")}</section>
+
+    <section class="alpha-sec" id="gr-quote"><h3>17. ~라고 <span class="sub">말을 옮길 때</span></h3>
+      <p class="alpha-note">들은 말이나 생각을 옮길 때는 그 문장 뒤에 ${gi("என்று", "~라고")}를 놓고 '말했다, 생각한다'를 씁니다. 말에서는 앞 낱말에 붙어 <span lang="ta">-ன்னு</span>가 됩니다. 나디 잎 풀이를 들을 때 '~라고 (잎에) 쓰여 있다'로 자주 나옵니다.</p>
+      ${grSents("quote")}</section>`;
 }
 function showAbout(on) {
   if (on && !$("gram").hidden) showGram(false);
